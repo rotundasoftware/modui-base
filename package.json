@@ -1,0 +1,15 @@
+{
+  "name": "modui-base",
+  "version": "0.0.0",
+  "description": "Base view class for all modui views.",
+  "main": "modui-base.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "modui",
+    "backbone"
+  ],
+  "author": "Rotunda Software",
+  "license": "MIT"
+}
