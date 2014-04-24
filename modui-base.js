@@ -24,7 +24,8 @@ module.exports = Super.extend( {
 	},
 
 	render : function() {
-		this.$el.html( this.template.render( this._getTemplateData() ) );
+		var templateVars = this._getTemplateData();
+		this.$el.html( this.template( templateVars ) );
 	},
 
 	_getTemplateData : function() {
