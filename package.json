@@ -11,5 +11,12 @@
     "backbone"
   ],
   "author": "Rotunda Software",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "underscore": "^1.6.0",
+    "backbone-handle": "^0.3.0",
+    "backbone-view-options": "^0.0.0",
+    "backbone-courier": "^0.6.0",
+    "backbone-subviews": "^0.7.0"
+  }
 }
