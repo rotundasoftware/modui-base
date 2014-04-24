@@ -7,13 +7,14 @@ var subviews = require( 'backbone-subviews' );
 
 module.exports = Super.extend( {
 	constructor : function( options ) {
+		handle.add( Super.prototype ); // needs to be added to view prototype, so that logic executes before render() in derived classes
+
 		viewOptions.add( this );
 		this.setOptions( options );
 		
 		// needs to be done before super is called, since super calls view#initialize,
 		// and view#initialize might spawn events
 		courier.add( this );
-		handle.add( this ); // needs to happen after Courier.add, so handles get replaced in spawnMessages
 
 		var returnValue = Super.prototype.constructor.apply( this, arguments );
 
@@ -26,6 +27,9 @@ module.exports = Super.extend( {
 	render : function() {
 		var templateVars = this._getTemplateData();
 		this.$el.html( this.template( templateVars ) );
+		this.resolveHandles();
+		
+		return this;
 	},
 
 	_getTemplateData : function() {
