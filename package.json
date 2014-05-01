@@ -16,7 +16,7 @@
     "underscore": "^1.6.0",
     "backbone-handle": "^0.3.0",
     "backbone-view-options": "^0.2.0",
-    "backbone-courier": "^0.5.0",
+    "backbone-courier": "^0.6.1",
     "backbone-subviews": "^0.7.0"
   }
 }
