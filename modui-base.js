@@ -1,5 +1,7 @@
-var Super = require( 'backbone' ).View;
+var Backbone = require( 'backbone' );
+Backbone.$ = require( 'jquery' );
 
+var Super = Backbone.View;
 var viewOptions = require( 'backbone-view-options' );
 var courier = require( 'backbone-courier' );
 var handle = require( 'backbone-handle' );
