@@ -1,7 +1,7 @@
+var _ = require( 'underscore' );
 var Backbone = require( 'backbone' );
-Backbone.$ = require( 'jquery' );
+var Super = require( 'backbone' ).View;
 
-var Super = Backbone.View;
 var viewOptions = require( 'backbone-view-options' );
 var courier = require( 'backbone-courier' );
 var handle = require( 'backbone-handle' );
@@ -27,9 +27,17 @@ module.exports = Super.extend( {
 	},
 
 	render : function() {
-		this.$el.html( this.template( this.getOptions() ) );
+		var templateData = this.getOptions();
+		if( this.model ) _.extend( templateData , this.model.attributes );
+		if( this._getTemplateData ) _.extend( templateData , this._getTemplateData() );
+
+		this.$el.html( this._renderTemplate( templateData ) );
 		this.resolveHandles();
 		
 		return this;
+	},
+
+	_renderTemplate : function( templateData ) {
+		return this.template( templateData );
 	}
 } );
