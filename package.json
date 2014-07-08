@@ -1,6 +1,6 @@
 {
   "name": "modui-base",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Base view class for all modui views.",
   "main": "modui-base.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "backbone-handle": "^0.3.0",
     "backbone-subviews": "^0.7.0",
     "backbone-view-options": "^0.2.0",
-    "jquery": "^2.1.1", 
+    "jquery": "^2.1.1",
     "underscore": "^1.6.0"
   }
 }
