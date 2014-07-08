@@ -1,6 +1,7 @@
 var _ = require( 'underscore' );
 var Backbone = require( 'backbone' );
-var Super = require( 'backbone' ).View;
+Backbone.$ = require( 'jquery' );
+var Super = Backbone.View;
 
 var viewOptions = require( 'backbone-view-options' );
 var courier = require( 'backbone-courier' );
