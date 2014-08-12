@@ -28,17 +28,37 @@ module.exports = Super.extend( {
 	},
 
 	render : function() {
+		if( ! this.template ) return this;
+
 		var templateData = this.getOptions();
 		if( this.model ) _.extend( templateData , this.model.attributes );
-		if( this._getTemplateData ) _.extend( templateData , this._getTemplateData() );
+		_.extend( templateData , this._getTemplateData() );
 
 		this.$el.html( this._renderTemplate( templateData ) );
+		
 		this.resolveHandles();
 		
 		return this;
 	},
 
+	_getTemplateData : function() {
+		// this function may be overridden to add additional properties
+		// to the object passed to the template's rendering function
+		return {};
+	},
+
 	_renderTemplate : function( templateData ) {
-		return this.template( templateData );
+		var html;
+		
+		if( _.isFunction( this.template ) )
+			html = this.template( templateData );
+		else if( this.template.render )
+			html = this.template.render( templateData );
+
+		return html;
 	}
+
+	// _onOptionsChanged : function() {
+	// 	this.render();
+	// }
 } );
