@@ -9,7 +9,7 @@ Each component in the suite can be used independently by requiring the component
 var ModuiPopup = require( 'modui-popup' );
 ```
 
-The modui suite must be used in a client-side commonjs environment along side browserify, parcelify, or cartero.
+The modui suite must be used in a client-side commonjs environment. We recommend its use with [parcelify](https://github.com/rotundasoftware/parcelify), [browserify](http://browserify.org/), or [cartero](https://github.com/rotundasoftware/cartero).
 
 ## modui-base
 
