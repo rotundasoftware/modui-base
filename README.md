@@ -1,15 +1,17 @@
-# modui-base
+# About the modui suite
 
 The modui suite is a collection of interface components based off of Backbone.View. modui-base is the base class for all the rest of the component views.
 
-Each component in the modui suite can be used independently by requiring the component, for instance
+Each component in the suite can be used independently by requiring the component, e.g.
 
 
 ```
 var ModuiPopup = require( 'modui-popup' );
 ```
 
-The suite is intended to be used in a client-side commonjs environment along side browserify, parcelify, or cartero.
+The modui suite must be used in a client-side commonjs environment along side browserify, parcelify, or cartero.
+
+## modui-base
 
 This modui-base class simply mixes together behavior from the following backbone plugins:
 
