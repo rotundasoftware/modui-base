@@ -57,8 +57,4 @@ module.exports = Super.extend( {
 
 		return html;
 	}
-
-	// _onOptionsChanged : function() {
-	// 	this.render();
-	// }
 } );
