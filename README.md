@@ -13,7 +13,7 @@ The modui suite must be used in a client-side commonjs environment along side br
 
 ## modui-base
 
-This modui-base class simply mixes together behavior from the following backbone plugins:
+All views in the modui suite are derived from the modui-base class. The base class simply mixes together behavior from the following backbone plugins:
 
 * [Backbone.Subviews](https://github.com/rotundasoftware/backbone.subviews)
 * [Backbone.Courier](https://github.com/rotundasoftware/backbone.courier)
