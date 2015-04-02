@@ -13,6 +13,8 @@
 }( this, function( _, Backbone, $, Super, viewOptions, courier, handle, subviews ) {
 
 Backbone.ModuiBase = Super.extend( {
+	options : [],
+
 	constructor : function( options ) {
 		handle.add( Super.prototype ); // needs to be added to view prototype, so that logic executes before render() in derived classes
 
@@ -63,7 +65,6 @@ Backbone.ModuiBase = Super.extend( {
 	}
 } );
 
-// return UMD
 return Backbone.ModuiBase;
 
 } ) );
