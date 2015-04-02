@@ -1,14 +1,18 @@
-var _ = require( 'underscore' );
-var Backbone = require( 'backbone' );
-Backbone.$ = require( 'jquery' );
-var Super = Backbone.View;
+( function( root, factory ) {
+	// UMD wrapper
+	if ( typeof define === 'function' && define.amd ) {
+		// AMD
+		define( [ 'underscore', 'backbone', 'jquery', 'backbone.View', 'backbone-view-options', 'backbone-courier', 'backbone-handle', 'backbone-subviews' ], factory );
+	} else if ( typeof exports !== 'undefined' ) {
+		// Node/CommonJS
+		module.exports = factory( require('underscore' ), require( 'backbone' ), require( 'backbone' ).$ , require( 'backbone' ).View, require( 'backbone-view-options' ), require( 'backbone-courier' ), require( 'backbone-handle' ), require( 'backbone-subviews' ) );
+	} else {
+		// Browser globals
+		factory( root._, root.Backbone, ( root.jQuery || root.Zepto || root.$ ), root.Backbone.View, root.Backbone.ViewOptions, root.Backbone.Courier, root.Backbone.Handle, root.Backbone.Subviews );
+	}
+}( this, function( _, Backbone, $, Super, viewOptions, courier, handle, subviews ) {
 
-var viewOptions = require( 'backbone-view-options' );
-var courier = require( 'backbone-courier' );
-var handle = require( 'backbone-handle' );
-var subviews = require( 'backbone-subviews' );
-
-module.exports = Super.extend( {
+Backbone.ModuiBase = Super.extend( {
 	constructor : function( options ) {
 		handle.add( Super.prototype ); // needs to be added to view prototype, so that logic executes before render() in derived classes
 
@@ -58,3 +62,8 @@ module.exports = Super.extend( {
 		return html;
 	}
 } );
+
+// return UMD
+return Backbone.ModuiBase;
+
+} ) );
