@@ -25,10 +25,12 @@ Backbone.ModuiBase = Super.extend( {
 		// and view#initialize might spawn events
 		courier.add( this );
 
-		var returnValue = Super.prototype.constructor.apply( this, arguments );
-
-		// must be done after super is called
+		// must be done before super is called, since if this.render is referenced
+		// in view#initialize (for example, if we bind an event to this.render),
+		// we want it to reference the wrapped version (post subview) of render.
 		subviews.add( this );
+
+		var returnValue = Super.prototype.constructor.apply( this, arguments );
 
 		return returnValue;
 	},
