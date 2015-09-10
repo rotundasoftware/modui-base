@@ -16,7 +16,8 @@ Backbone.ModuiBase = Super.extend( {
 	options : [],
 
 	constructor : function( options ) {
-		handle.add( Super.prototype ); // needs to be added to view prototype, so that logic executes before render() in derived classes
+		//handle.add( Super.prototype ); // needs to be added to view prototype, so that logic executes before render() in derived classes
+		handle.add( this ); // needs to be added to view prototype, so that logic executes before render() in derived classes
 
 		viewOptions.add( this );
 		this.setOptions( options );
@@ -36,13 +37,13 @@ Backbone.ModuiBase = Super.extend( {
 	},
 
 	render : function() {
-		if( ! this.template ) return this;
+		if( this.template ) {
+			var templateData = this.getOptions();
+			if( this.model ) _.extend( templateData , this.model.attributes );
+			_.extend( templateData , this._getTemplateData() );
 
-		var templateData = this.getOptions();
-		if( this.model ) _.extend( templateData , this.model.attributes );
-		_.extend( templateData , this._getTemplateData() );
-
-		this.$el.html( this._renderTemplate( templateData ) );
+			this.$el.html( this._renderTemplate( templateData ) );
+		}
 		
 		this.resolveHandles();
 		
