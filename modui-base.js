@@ -67,7 +67,7 @@ Backbone.ModuiBase = Super.extend( {
 		return html;
 	},
 
-	_onSubiewsRendered : function() {
+	_onSubviewsRendered : function() {
 		// override in derived classes
 	}
 } );
