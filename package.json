@@ -13,11 +13,11 @@
   "author": "Rotunda Software",
   "license": "MIT",
   "dependencies": {
-    "backbone": "^1.1.2",
+    "backbone": "^1.2.3",
     "backbone-courier": "^1.0.0",
-    "backbone-handle": "^0.3.0",
-    "backbone-subviews": "^0.7.0",
-    "backbone-view-options": "^0.2.0",
+    "backbone-handle": "^1.0.0",
+    "backbone-subviews": "^1.0.0",
+    "backbone-view-options": "^1.0.0",
     "jquery": "^2.1.1",
     "underscore": "^1.6.0"
   }
