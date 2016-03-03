@@ -13,6 +13,8 @@
 }( this, function( _, Backbone, Super, viewOptions, courier, handle, subviews ) {
 
 Backbone.ModuiBase = Super.extend( {
+	className : 'view',
+	
 	options : [],
 
 	constructor : function( options ) {
