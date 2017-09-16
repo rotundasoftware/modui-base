@@ -1,6 +1,6 @@
 {
   "name": "modui-base",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Base view class for all modui views.",
   "main": "modui-base.js",
   "scripts": {
