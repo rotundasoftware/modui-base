@@ -71,6 +71,18 @@ Backbone.ModuiBase = Super.extend( {
 
 	_onSubviewsRendered : function() {
 		// override in derived classes
+	},
+
+	_encapsulateEvent : function( e ) {
+		let encapsulatedEvent = _.pick( e, [ 'keyCode', 'metaKey', 'ctrlKey', 'altKey', 'shiftKey' ] );
+
+		_.each( [ 'preventDefault', 'stopPropagation', 'stopImmediatePropagation' ], function( thisMethod ) {
+			encapsulatedEvent[ thisMethod ] = function() {
+				e[ thisMethod ]();
+			};
+		} );
+
+		return encapsulatedEvent;
 	}
 } );
 
