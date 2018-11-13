@@ -74,7 +74,7 @@ Backbone.ModuiBase = Super.extend( {
 	},
 
 	_encapsulateEvent : function( e ) {
-		let encapsulatedEvent = _.pick( e, [ 'keyCode', 'metaKey', 'ctrlKey', 'altKey', 'shiftKey' ] );
+		var encapsulatedEvent = _.pick( e, [ 'keyCode', 'metaKey', 'ctrlKey', 'altKey', 'shiftKey' ] );
 
 		_.each( [ 'preventDefault', 'stopPropagation', 'stopImmediatePropagation' ], function( thisMethod ) {
 			encapsulatedEvent[ thisMethod ] = function() {
