@@ -15,7 +15,9 @@
 Backbone.ModuiBase = Super.extend( {
 	className : 'view',
 	
-	options : [],
+	options : [
+		'extraClassName' // appended to regular class names to facilitate styling
+	],
 
 	constructor : function( options ) {
 		//handle.add( Super.prototype ); // needs to be added to view prototype, so that logic executes before render() in derived classes
@@ -48,6 +50,8 @@ Backbone.ModuiBase = Super.extend( {
 		}
 		
 		this.resolveHandles();
+		
+		if( ! _.isUndefined( this.extraClassName ) ) this.$el.addClass( this.extraClassName );
 		
 		return this;
 	},
