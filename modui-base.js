@@ -16,12 +16,12 @@ Backbone.ModuiBase = Super.extend( {
 	className : 'view',
 	
 	options : [
-		'extraClassName' // appended to regular class names to facilitate styling
+		'extraClassName', // appended to regular class names to facilitate styling
+		'passMessagesTo' // where to pass courier messagegs defaults to closest view in DOM
 	],
 
 	constructor : function( options ) {
-		//handle.add( Super.prototype ); // needs to be added to view prototype, so that logic executes before render() in derived classes
-		handle.add( this ); // needs to be added to view prototype, so that logic executes before render() in derived classes
+		handle.add( this );
 
 		viewOptions.add( this );
 		this.setOptions( options );
@@ -87,6 +87,16 @@ Backbone.ModuiBase = Super.extend( {
 		} );
 
 		return encapsulatedEvent;
+	},
+
+	_getParentView : function() {
+		// used for courier messages
+
+		// if we have an explicit view to pass our messagegs to, do it
+		if( this.passMessagesTo ) return this.passMessagesTo;
+
+		// otherwise do default curiour behavior of passing to closest parent view
+		return courier.findClosestParentView( this );
 	}
 } );
 
