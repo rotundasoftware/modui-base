@@ -39,10 +39,6 @@ The modui suite is written in ES6 and must be transpiled with a tool like WebKit
     - [view._afterRender()](#view_afterrender)
     - [view._getTemplateData()](#view_gettemplatedata)
     - [view._onOptionsChanged( changedOptions, previousValues )](#view_onoptionschanged-changedoptions-previousvalues-)
-    - [view._getParentView()](#view_getparentview)
-  - [Static methods](#static-methods)
-    - [ModuiBase.computeInitialOptions( optionsPassedToConstructor )](#moduibasecomputeinitialoptions-optionspassedtoconstructor-)
-    - [ModuiBase.throw( errorMessage )](#moduibasethrow-errormessage-)
 - [License](#license)
 
 ## modui-base
@@ -231,13 +227,6 @@ This function may be extended to add additional properties that will be added to
 
 #### view._onOptionsChanged( changedOptions, previousValues )
 This function may be extended to do something when options are changed. It is only called when the option(s) that are changed had previous (non-undefined) values.
-
-#### view._getParentView()
-This function may be overriden to add custom logic to the message passing mechanism. It should return the view to which the spawned messages will be passed.
-
-It can be used when the view hierarchy is not reflected in the DOM structure (e.g. a view dialog created from another view, but appended as a `<body>` direct child).
-
-> Override only if the parent view has to be determined at runtime. If you already know which view should receive the message, use the `passMessagesTo` built-in option instead.
 
 ## License
 MIT
