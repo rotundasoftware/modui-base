@@ -1,7 +1,7 @@
 
 # About modui-base
 
-ModuiBase is a simple view class based on Backbone.View. It honors Backbone's minimalist spirit while providing a few bits of extra structure so that complex web interfaces can be implemented by breaking functionality down into small, encapsulated components.
+ModuiBase is a simple view class inspired by and based on Backbone.View. It honors Backbone's minimalist spirit while providing a few bits of extra structure so that complex web interfaces can be implemented by breaking functionality down into small, encapsulated components.
 
 Rotunda uses ModuiBase as the foundation for an expansive suite of proprietary interface components that are shared between all our web applications. 
 
