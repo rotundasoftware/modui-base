@@ -23,15 +23,15 @@ The modui suite is written in ES6 and must be transpiled with a tool like WebKit
   - [Messages](#messages)
   - [View options](#view-options)
 - [API reference](#api-reference)
-  - [Class properties](#properties)
+  - [Class properties](#classproperties)
     - [template](#template)
     - [options](#options)
     - [onMessages](#onmessages)
     - [passMessages](#passmessages)
     - [subviewCreators](#subviewcreators)
   - [Public instance methods](#publicinstancemethods)
-    - [set( optionsHashOrName, optionValue )](#set)
-    - [get( optionNames )](#get)
+    - [set( optionsHashOrName, optionValue )](#set-optionshashorname-optionvalue-)
+    - [get( optionNames )](#get-optionNames_)
     - [spawn( messageName, data )](#spawn)
     - [removeSubviews( whichSubviews )](#removesubviews)
   - [Private instance methods](#private-methods)
@@ -109,7 +109,7 @@ ModuiBase provides a simple declarative syntax to define the puplic properties, 
 
 ## API reference
 
-### Properties declared when extended ModuiBase
+### Class properties
 
 The following properties can be used when defining a new view class that extends ModuiBase (in addition to, for example, the Backbone.View `events` property).
 
@@ -175,13 +175,11 @@ subviewCreators : {
 }
 ```
 
-#### view.subviews
-
 An object containing all subviews, keyed by subview name, is maintained at `view.subviews`. This object is read-only - it is constructed automatically during render using the functions defined in `subviewCreators`.
 
-### Public methods
+### Public instance methods
 
-#### view.set( optionsHashOrName, optionValue )
+#### set( optionsHashOrName, optionValue )
 Set the value of one or more view options. It can be called in two ways:
 * `set( optionName, optionValue )`
 * `set( optionsHash )` where `optionsHash` is an object that maps option names to their new values
@@ -192,7 +190,7 @@ Some considerations:
 * Attempting to set a non-required option to undefined won't have any effect
 * Changing the value of an option will trigger a call to `view._onOptionsChanged()` (but only if the option was already initialized (i.e. had a value other than undefined)
 
-#### view.get( optionNames )
+#### get( optionNames )
 Get the value of one or more options. It can be called in three ways:
 * `view.get( optionName )` returns the value of the option named optionName
 * `view.get( optionNames )` returns a hash mapping options in the optionNames array to their values
@@ -200,7 +198,7 @@ Get the value of one or more options. It can be called in three ways:
 
 Attempting to get a non-declared option will throw an error.
 
-#### view.spawn( messageName, data )
+#### spawn( messageName, data )
 The spawn method generates a new message and passes it to the view's "parent", i.e. the closest ancestor view in the DOM tree. It also calls `view.trigger( messageName, data )` so that you can listen to the message as you would a normal Backbone event.
 
 `data` is application defined data that will be available to this view's ancestors when handling this message using their `onMessages` hash.
@@ -208,23 +206,23 @@ The spawn method generates a new message and passes it to the view's "parent", i
 > **Round trip messages**
 > If `messageName` ends in `!`, the message is considered a "round trip message". Round trip messages are special in that they return values. That is, the `spawn()` method will return the value returned by the message handler. Using round trip messages, views can obtain dynamic information about their environment that, because it is dynamic, can not be passed in through view options. Round trip messages will continue to be passed up the hierarchy until they are handled - regardless of the value of each intermediate view's `passMessages` property. If a round trip message is not handled, `spawn()` returns `undefined`.
 
-#### view.removeSubviews( whichSubviews )
+#### removeSubviews( whichSubviews )
 Remove some or all subviews. `whichSubviews` may be an array containing subview names. Not passing an argument will remove all subviews.
 
 Use it before calling `view.render()` if you don't want to preserve current subviews (i.e. perform a "deep render").
 
-### Private methods
+### Private instance methods
 `ModuiBase` implements some private methods meant to be overriden by descendant classes.
 
-#### view._afterRender()
+#### _afterRender()
 This function may be extended to add post-rendering logic. Descendant views should extend this method to perform additional UI decoration.
 
 > **Important:** Descendant views should almost never extend `render()`. Extending `_afterRender()` is the preffered way of adding post-rendering logic, unless you really know what you're doing.
 
-#### view._getTemplateData()
+#### _getTemplateData()
 This function may be extended to add additional properties that will be passed to the `template` function as the `templateData` parameter. By default it returns a hash containing all the view's options.
 
-#### view._onOptionsChanged( changedOptions, previousValues )
+#### _onOptionsChanged( changedOptions, previousValues )
 This function may be extended to do something when options are changed. It is only called when the option(s) that are changed had previous (non-undefined) values.
 
 ## License
