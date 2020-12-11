@@ -15,7 +15,7 @@ const MyView = ModuiBase.extend( {
 } );
 ```
 
-The modui suite is written in ES6 and must be transpiled to support target browsers. We recommend its use with [parcelify](https://github.com/rotundasoftware/parcelify), [browserify](http://browserify.org/), or [cartero](https://github.com/rotundasoftware/cartero).
+The modui suite is written in ES6 and must be transpiled with a tool like WebKit or Browserify to be used with older browsers. At Rotunda we use [cartero](https://github.com/rotundasoftware/cartero) to further support UI componentization of our large multi-page web applications.
 
 **Table of contents**
 - [modui-base](#modui-base)
