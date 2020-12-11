@@ -215,7 +215,7 @@ Remove some or all subviews. `whichSubviews` may be an array containing subview 
 Use it before calling `view.render()` if you don't want to preserve current subviews (i.e. perform a "deep render").
 
 ### Private methods
-`ModuiBase` implements some private methods meant to be used, extended or overriden by descendant classes.
+`ModuiBase` implements some private methods meant to be overriden by descendant classes.
 
 #### view._afterRender()
 This function may be extended to add post-rendering logic. Descendant views should extend this method to perform additional UI decoration.
@@ -223,7 +223,7 @@ This function may be extended to add post-rendering logic. Descendant views shou
 > **Important:** Descendant views should almost never extend `render()`. Extending `_afterRender()` is the preffered way of adding post-rendering logic, unless you really know what you're doing.
 
 #### view._getTemplateData()
-This function may be extended to add additional properties that will be added to the template data. It should return an object containing the properties to add.
+This function may be extended to add additional properties that will be passed to the `template` function as the `templateData` parameter. By default it returns a hash containing all the view's options.
 
 #### view._onOptionsChanged( changedOptions, previousValues )
 This function may be extended to do something when options are changed. It is only called when the option(s) that are changed had previous (non-undefined) values.
