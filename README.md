@@ -73,31 +73,32 @@ The message will automatically bubble up the view hierarchy. The view's parent c
 ![Spawned messages diagram](https://github.com/rotundasoftware/modui/blob/master/packages/modui-base/messages-diagram.jpg)
 
 Here is an example of a view that both spawns a message to its ancestors, and handles a message from its children:
+
 ```javascript
 const MyView = ModuiBase.extend( {
-    events : {
+	events : {
 		'click div.close-box' : '_closeBox_onClick'
-    },
-    
-    // Handle the "selected" message from a child view.
+	},
+	
+	// Handle the "selected" message from a child view.
 	onMessages : {
 		'selected' : '_onChildSelected'
-    },
-    
-    _onChildSelected( data, currentSourceView, originalSourceView ) {
-        console.log( 'My child view just spawned the "selected" message.' );
+	},
+	
+	_onChildSelected( data, currentSourceView, originalSourceView ) {
+		console.log( 'My child view just spawned the "selected" message.' );
 
 		// Any application defined data that has been supplied (second argument passed when calling spawn)
 		console.log( data );
 
 		// The child view object that spawned or passed this message
 		assert( currentSourceView instanceof ModuiBase );
-        
-        // The child view object that spawned the original message
+		
+		// The child view object that spawned the original message
 		assert( currentSourceView instanceof ModuiBase );   
-    },
-    
-    // Spawn a message that can be handled by our own parent
+	},
+	
+	// Spawn a message that can be handled by our own parent
 	_closeBox_onClick() {
 		this.spawn( 'closeBoxClicked' );
 	}
