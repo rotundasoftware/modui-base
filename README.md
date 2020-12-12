@@ -41,29 +41,36 @@ ModuiBase is written in ES6 and must be transpiled with a tool like WebKit or Br
 - [License](#license)
 
 ## modui-base
-ModuiBase extends Backbone.View with:
+From a high level perspective, ModuiBase extends Backbone.View with:
 
-* A [subviews](#subviews) creation and management system.
-* A [message](#messages) system that promotes view encapsulation.
-* A [view options](#view-options) system that allows to easily declare, get and set options on views.
+* A means to declare and access [options](#view-options) (a.k.a public view properties)
+* [subview](#subviews) management
+* A DOM-based [message](#messages) paradigm
 
-It also provides a default `render` method that renders a template function attached to the `template` property of the view, using the view's options as template data.
+It adds the ability to give a view a `template` function that will be used to render its contents.
+
+### View options
+ModuiBase provides a simple declarative syntax to define the puplic properties, or "options", of a view, and a mechanism to update the view when its options are changed. The declaritive syntax for options makes it easy to understand the "API" for each view class. Options are:
+
+* Declared as an array on the view class, with support for required and default values
+* Included automatically as template data when the view's template is rendered
+* Can be retrieved and modified by other views via public `get()` and `set()` methods
 
 ### Subviews
-ModuiBase provides an easy way to manage subviews in order to promotes small encapsulated views that can be reused.
+ModuiBase provides an easy way to manage subviews in order to facilitate the use of small, encapsulated views that can be reused.
 
-To create a subview, include `<div data-subview="mySubview"></div>` in a view's template and then define a creator function for the subview in the view's `subviewCreators` property. The subview management logic:
+To create a subview, just include `<div data-subview="mySubview"></div>` in a view's template and then define a creator function for the subview in the class' `subviewCreators` property. The subview management logic:
 
-* Automatically puts references to subviews in a hash by name, e.g. `this.subviews.mySubview`
-* Maintains subview objects when a parent view is re-rendered, preserving subview state.
+* Automatically puts references to subviews in a hash keyed by name, e.g. `this.subviews.mySubview`
+* Maintains subviews when a parent view is re-rendered, preserving subview state.
 * Automatically cleans up (i.e. removes) subviews when a parent view is removed.
 
 ### Messages
-ModuiBase provides an easy way to bubble "messages" up our view hierarchy. Messages are to views as DOM events are to DOM elements. Having a layer of abstraction for hierarchical events that is reserved exclusively for views promotes small encapsulated views that can be reused.
+ModuiBase discourages the use of traditional Backbone events in favor of a more structured way to communicate between views that helps enforce encapsulation. Instead of events being triggered, "messages" are "spawned" by a view and passed up the DOM hierarchy. Messages are similar to DOM events but exist only in and for the view layer of abstraction, and do not bubble by default, so the set of messages that are emited from a view is limited and well defined.
 
 Use `view.spawn( messageName, data )` to spawn a message.
 
-The message will automatically bubble up the view hierarchy. The view's parent can then "handle" the message and / or pass it to the parent's own parent, and so on. The DOM tree is used (by default) to determine the view hierarchy. (The message is also triggered as a traditional Backbone event, but only in rare cases is it necessary to `listenTo` the triggered Backbone event laterally, as opposed to handling the spawned message in a parent view.)
+The message will automatically "bubble up" to the view's parent, which can then "handle" the message and / or pass it to the parent's own parent, and so on. The DOM tree is used (by default) to determine the view hierarchy. (The message is also triggered as a traditional Backbone event, but only in rare cases is it necessary to `listenTo` the triggered Backbone event laterally, as opposed to handling the spawned message in an ancestor view.)
 
 ![Spawned messages diagram](https://github.com/rotundasoftware/modui/blob/master/packages/modui-base/messages-diagram.jpg)
 
@@ -75,9 +82,8 @@ const MyView = ModuiBase.extend( {
 		'click div.close-box' : '_closeBox_onClick'
 	},
 	
-	// Handle the "selected" message from a child view.
 	onMessages : {
-		'selected' : '_onChildSelected'
+		'selected' : '_onChildSelected' // Handle the "selected" message from a child view.
 	},
 	
 	_onChildSelected( data, currentSourceView, originalSourceView ) {
@@ -100,32 +106,41 @@ const MyView = ModuiBase.extend( {
 } );
 ```
 
-### View options
-ModuiBase provides a simple declarative syntax to define the puplic properties, or "options", of a view, and a mechanism to update the view when its options are changed. Clearly defining the public interface of each view class promotes small encapsulated views that can be reused. Options are:
-
-* Declared as an array on the view class, with support for required and default values
-* Included automatically as template data when the view's template is rendered
-* Can be retrieved and modified by other views via public `get()` and `set()` methods
-
 ## API reference
 
 ### Class properties
 
 The following properties can be used when defining a new view class that extends ModuiBase (in addition to, for example, the Backbone.View `events` property).
 
-#### template
-A function that returns the HTML for the view's `el`. If `template` is supplied, it will automatically be invoked and `el` will be populated as part of the default `render` behavior. The `template` function is passed the `templateData` object returned by `view._getTemplateData`.
-
 #### options
-An array of public options. Each entry in the array may have one of the following three formats:
+An array of options for the view class. Each entry in the array may have one of the following three formats:
 
 ```javascript
 options : [
     'name', // Declares `name` a public option on this view class
-    'type!', // Attempting to create an instance without supplying a value for this option will throw an error
-    { label : 'OK' } // If a value for this option is not supplied, it will be defaulted to 'OK'
+    'type!', // Explanation mark indicates required option - an error will be thrown if a value is not supplied
+    { label : 'OK' } // Option with a default value
 ]
 ```
+
+View options are attached directly to the view object, but they should be accessed through `view.get`.
+
+```
+const myView = MyView( { name : "CodeIzCool", type : 'ThisIsRequired' } );
+console.log( myView.get( 'name' ) ); // CodeIzCool
+```
+
+#### subviewCreators
+An object mapping subview names to view factory functions. Subview names will be used to match message names declared in the `onMessages` property.
+```javascript
+subviewCreators : {
+    myChildView() {
+        return new MyChildView();
+    }
+}
+```
+
+An object containing all subviews, keyed by subview name, is maintained at `view.subviews`. This object is read-only - it is constructed automatically during render using the functions defined in `subviewCreators`.
 
 #### onMessages
 The `onMessages` hash is the means by which a parent view can take action on, or "handle", messages received from its children. Entries in the `onMessages` hash have the format:
@@ -141,21 +156,14 @@ The `onMessages` hash is the means by which a parent view can take action on, or
   3. `originalSourceView` is the child or grandchild view that original spawned the message
 
 Example entries in the `onMessages` hash:
+
 ```javascript
 onMessages : {
-    // Called only when the message comes from "myList" view
-    'selectionChanged myList' : '_myList_onSelectionChanged',
-    // Called every time this message is received.
-    'selectionChanged' : 'onSelectionchanged',
-    // We can also provide a function declaration
-    memberAdded() {
-        // Do stuff
-    }
+ 	'selectionChanged' : 'onSelectionchanged', // Called when a message with this name is received from any subview
+	'selectionChanged myList' : '_myList_onSelectionChanged', // Called only when the message comes from "myList" subview
+ 	'memberAdded' : function() { ... } // We can also provide a function declaration inline
 }
 ```
-
-> When a regular message is received, both view specific and generic message handlers will be executed (if present). However, that's not the case for *round trip messages*, which execute the first and most specific handler found and return its value immediately. For more details on round trip messages, see [`view.spawn()`](#viewspawn-messagename-data-).
-
 
 #### passMessages
 The `passMessages` property is used to pass messages received from a child view further up the view hierarchy, to potentially be handled by a more distant ancestor.
@@ -163,40 +171,43 @@ The `passMessages` property is used to pass messages received from a child view 
 * If the property is `true`, all (unhandled) messages are passed through the view.
 * If the property is an array, only messages with the names it contains will be passed through.
 
-In this manner, messages bubble up the view hierarchy, as determined (by default) by the DOM tree.
+#### template( templateData )
+An optional function that returns the HTML for the view's `el`. If the `template` function is supplied, it will automatically be invoked and `view.el` will be populated as part of the default `render` behavior. The `template` function is passed as its only parameter a hash of the view's options merged with the result of `view._getTemplateData`. (If no `template` function is defined, you'll need to populate `view.el` manually by overriding `render`, as you would with a traditional Backbone view.)
 
-#### subviewCreators
-An object mapping subview names to view factory functions. Subview names will be used to match message names declared in the `onMessages` property.
-```javascript
-subviewCreators : {
-    myChildView() {
-        return new MyChildView();
-    }
-}
+We recommending configuring a preprocessor to compile files written in your preferred template langauge into executable functions. For example:
+
 ```
+import myViewTemplate from './myView.nunj';
 
-An object containing all subviews, keyed by subview name, is maintained at `view.subviews`. This object is read-only - it is constructed automatically during render using the functions defined in `subviewCreators`.
+const MyView = ModuiBase.extend( {
+   template : myViewTemplate,
+} );
+
+```
 
 ### Public instance methods
 
 #### set( optionsHashOrName, optionValue )
-Set the value of one or more view options. It can be called in two ways:
-* `set( optionName, optionValue )`
-* `set( optionsHash )` where `optionsHash` is an object that maps option names to their new values
+Set the value of one or more view options.
+
+```javascript
+set( optionName, optionValue )`
+set( optionsHash )` // where `optionsHash` is an object that maps option names to their new values
+```
 
 Some considerations:
 * Attempting to set an option that is not declared will throw an error
-* Attempting to set a required option to undefined will throw an error
-* Attempting to set a non-required option to undefined won't have any effect
-* Changing the value of an option will trigger a call to `view._onOptionsChanged()` (but only if the option was already initialized (i.e. had a value other than undefined)
+* Attempting to set an option to undefined will throw an error
+* Changing the value of an option will trigger a call to `view._onOptionsChanged()`
 
 #### get( optionNames )
-Get the value of one or more options. It can be called in three ways:
-* `view.get( optionName )` returns the value of the option named optionName
-* `view.get( optionNames )` returns a hash mapping options in the optionNames array to their values
-* `view.get()` returns a hash mapping all options to their values
+Get the value of one or more options.
 
-Attempting to get a non-declared option will throw an error.
+```javascript
+view.get( optionName ) // returns the value of the option named optionName
+view.get( optionNames ) // returns a hash mapping options in the optionNames array to their values
+view.get() // returns a hash mapping all options to their values
+```
 
 #### spawn( messageName, data )
 The spawn method generates a new message and passes it to the view's "parent", i.e. the closest ancestor view in the DOM tree. It also calls `view.trigger( messageName, data )` so that you can listen to the message as you would a normal Backbone event.
@@ -207,11 +218,9 @@ The spawn method generates a new message and passes it to the view's "parent", i
 > If `messageName` ends in `!`, the message is considered a "round trip message". Round trip messages are special in that they return values. That is, the `spawn()` method will return the value returned by the message handler. Using round trip messages, views can obtain dynamic information about their environment that, because it is dynamic, can not be passed in through view options. Round trip messages will continue to be passed up the hierarchy until they are handled - regardless of the value of each intermediate view's `passMessages` property. If a round trip message is not handled, `spawn()` returns `undefined`.
 
 #### removeSubviews( whichSubviews )
-Remove some or all subviews. `whichSubviews` may be an array containing subview names. Not passing an argument will remove all subviews.
+Remove some or all subviews. `whichSubviews` may be an array containing subview names. If `whichSubviews` is not supplied, all subviews will be removed.
 
-Use it before calling `view.render()` if you don't want to preserve current subviews (i.e. perform a "deep render").
-
-### Private instance methods
+### Overridable private class methods
 `ModuiBase` implements some private methods meant to be overriden by descendant classes.
 
 #### _afterRender()
@@ -223,7 +232,17 @@ This function may be extended to add post-rendering logic. Descendant views shou
 This function may be overriden to provide data to the view's template function. The object it returns will be merged with the view's options and then passed to the `template` function as the `templateData` parameter.
 
 #### _onOptionsChanged( changedOptions, previousValues )
-This function may be extended to do something when options are changed. It is only called when the option(s) that are changed had previous (non-undefined) values.
+This function can be overridden to take some action when options are changed, for example, to update DOM state. `changedOptions` is a hash of options that have changed to their new values and `previousValues` maps the same to their previous values.
+
+```
+const MyView = ModuiBase.extend( {
+	_onOptionsChanged( changedOptions ) {
+		if( 'name' in changedOptions ) {
+			this.$el.find( 'div.name' ).text( changedOptions.name );
+		}
+	},
+} );
+```
 
 ## License
 MIT
