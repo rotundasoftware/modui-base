@@ -7,7 +7,7 @@ ModuiBase is a foundational view class inspired by and based on Backbone.View. I
 
 To use ModuiBase, extend it as you would with Backbone.View. Please see the [Backbone.View documentation](https://backbonejs.org/#View) for prerequisite understanding of Backbone.View.
 
-```
+```javascript
 import ModuiBase from '@rotundasoftware/modui-base';
 
 const MyView = ModuiBase.extend( {
