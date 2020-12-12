@@ -3,7 +3,7 @@
 
 ModuiBase is a simple view class inspired by and based on Backbone.View. It was designed to facilitate building complex web interfaces by breaking them down into small, encapsulated components, while honoring Backbone's minimalist approach.
 
-[Rotunda Software](https://www.rotundasoftware.com) maintains ModuiBase and uses it as the foundation of an expansive suite of application agnostic proprietary interface components such as buttons, fields, dropdowns, dialogs, popups, etc. All of our application specific views also decend from ModuiBase.
+[Rotunda Software](https://www.rotundasoftware.com) maintains ModuiBase and uses it as the foundation of an expansive suite of application agnostic proprietary interface components such as buttons, fields, dropdowns, dialogs, popups, etc. All of our application specific views also descend from ModuiBase.
 
 To use ModuiBase, extend it as you would with Backbone.View. Please see the [Backbone.View documentation](https://backbonejs.org/#View) for prerequisite understanding of Backbone.View.
 
@@ -18,7 +18,7 @@ const MyView = ModuiBase.extend( {
 ModuiBase is written in ES6 and must be transpiled with a tool like WebKit or Browserify to be used with older browsers. (At Rotunda we use [cartero](https://github.com/rotundasoftware/cartero) to further support the reuse of UI components in large multi-page web applications.)
 
 **Table of contents**
-- [modui-base](#modui-base)
+- [Overview](#overview)
   - [Options](#options)
   - [Subviews](#subviews)
   - [Messages](#messages)
@@ -40,7 +40,7 @@ ModuiBase is written in ES6 and must be transpiled with a tool like WebKit or Br
     - [_onOptionsChanged( changedOptions, previousValues )](#_onoptionschanged-changedoptions-previousvalues-)
 - [License](#license)
 
-## modui-base
+## Overview
 From a high level perspective, ModuiBase extends Backbone.View with:
 
 * A means to declare and access [options](#view-options) (a.k.a public view properties)
@@ -50,7 +50,7 @@ From a high level perspective, ModuiBase extends Backbone.View with:
 It adds the ability to give a view a `template` function that will be used to render its contents.
 
 ### Options
-ModuiBase provides a simple declarative syntax to define the puplic properties, or "options", of a view, and a mechanism to update the view when its options are changed. The declaritive syntax for options makes it easy to understand the "API" for each view class. Options are:
+ModuiBase provides a simple declarative syntax to define the public properties, or "options", of a view, and a mechanism to update the view when its options are changed. The declarative syntax for options makes it easy to understand the "API" for each view class. Options are:
 
 * Declared as an array on the view class, with support for required and default values
 * Included automatically as template data when the view's template is rendered
@@ -66,7 +66,7 @@ To create a subview, just include `<div data-subview="mySubview"></div>` in a vi
 * Automatically cleans up (i.e. removes) subviews when a parent view is removed.
 
 ### Messages
-ModuiBase discourages the use of traditional Backbone events in favor of a more structured way to communicate between views that helps enforce encapsulation. Instead of events being triggered, "messages" are "spawned" by a view and passed up the DOM hierarchy. Messages are similar to DOM events but exist only in and for the view layer of abstraction, and do not bubble by default, so the set of messages that are emited from a view is limited and well defined.
+ModuiBase discourages the use of traditional Backbone events in favor of a more structured way to communicate between views that helps enforce encapsulation. Instead of events being triggered, "messages" are "spawned" by a view and passed up the DOM hierarchy. Messages are similar to DOM events but exist only in and for the view layer of abstraction, and do not bubble by default, so the set of messages that are emitted from a view is limited and well defined.
 
 Use `view.spawn( messageName, data )` to spawn a message.
 
@@ -174,7 +174,7 @@ The `passMessages` property is used to pass messages received from a child view 
 #### template( templateData )
 An optional function that returns the HTML for the view's `el`. If the `template` function is supplied, it will automatically be invoked and `view.el` will be populated as part of the default `render` behavior. The `template` function is passed as its only parameter a hash of the view's options merged with the result of `view._getTemplateData`. (If no `template` function is defined, you'll need to populate `view.el` manually by overriding `render`, as you would with a traditional Backbone view.)
 
-We recommending configuring a preprocessor to compile files written in your preferred template langauge into executable functions. For example:
+We recommend configuring a preprocessor to compile files written in your preferred template language into executable functions. For example:
 
 ```
 import myViewTemplate from './myView.nunj';
@@ -221,7 +221,7 @@ The spawn method generates a new message and passes it to the view's "parent", i
 Remove some or all subviews. `whichSubviews` may be an array containing subview names. If `whichSubviews` is not supplied, all subviews will be removed.
 
 ### Overridable private class methods
-`ModuiBase` implements some private methods meant to be overriden by descendant classes.
+`ModuiBase` implements some private methods meant to be overridden by descendant classes.
 
 #### _afterRender()
 This function may be extended to add post-rendering logic. Descendant views should extend this method to perform additional UI decoration.
@@ -246,4 +246,3 @@ const MyView = ModuiBase.extend( {
 
 ## License
 MIT
-
