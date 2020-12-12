@@ -131,7 +131,8 @@ console.log( myView.get( 'name' ) ); // 'CodeIzCool'
 ```
 
 #### subviewCreators
-An object mapping subview names to view factory functions. Subview names will be used to match message names declared in the `onMessages` property.
+An object mapping subview names to functions that return view instances.
+
 ```javascript
 subviewCreators : {
     myChildView() {
