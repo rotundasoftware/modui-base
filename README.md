@@ -220,7 +220,7 @@ This function may be extended to add post-rendering logic. Descendant views shou
 > **Important:** Descendant views should almost never extend `render()`. Extending `_afterRender()` is the preffered way of adding post-rendering logic, unless you really know what you're doing.
 
 #### _getTemplateData()
-This function may be extended to add additional properties that will be passed to the `template` function as the `templateData` parameter. By default it returns a hash containing all the view's options.
+This function may be overriden to provide data to the view's template function. The object it returns will be merged with the view's options and then passed to the `template` function as the `templateData` parameter.
 
 #### _onOptionsChanged( changedOptions, previousValues )
 This function may be extended to do something when options are changed. It is only called when the option(s) that are changed had previous (non-undefined) values.
