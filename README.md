@@ -1,7 +1,7 @@
 
 # About modui-base
 
-ModuiBase is a foundational view class inspired by and based on Backbone.View. It was designed to facilitate building complex web interfaces by breaking them down into small, modularized components, while honoring Backbone's minimalist approach.
+ModuiBase is a foundational view class inspired by and based on Backbone.View. It was designed to facilitate building complex web interfaces by breaking them down into small, modularized, reusable components, while honoring Backbone's minimalist approach.
 
 [Rotunda Software](https://www.rotundasoftware.com) maintains ModuiBase and uses it as the foundation of an expansive suite of application agnostic proprietary interface components such as buttons, fields, dropdowns, dialogs, popups, etc. All of our application specific views also descend from ModuiBase.
 
@@ -57,7 +57,7 @@ ModuiBase provides a simple declarative syntax to define the public properties, 
 * Included automatically as template data when the view class' `template` function is invoked
 
 ### Subviews
-ModuiBase provides an easy way to manage subviews in order to facilitate the use of small, encapsulated views that can be reused.
+ModuiBase provides an easy way to manage subviews in order to facilitate the use of small, modularized, reusable views.
 
 To create a subview, just include an empty `div` with the `data-subview` attribute in a view's HTML contents (e.g. `<div data-subview="mySubview"></div>`) and then define a creator function with a matching name in the class' `subviewCreators` property. The subview management logic:
 
