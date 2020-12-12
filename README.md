@@ -197,7 +197,7 @@ set( optionsHash ) // where `optionsHash` is an object that maps option names to
 
 Some considerations:
 * Attempting to set an option that is not declared will throw an error
-* Attempting to set an option to undefined will throw an error
+* Attempting to set an option to `undefined` will throw an error
 * Changing the value of an option will trigger a call to `view._onOptionsChanged()`
 
 #### get( optionNames )
