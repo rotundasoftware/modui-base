@@ -47,8 +47,6 @@ From a high level perspective, ModuiBase extends Backbone.View with:
 * [Subview](#subviews) management
 * A DOM-based [message paradigm](#messages)
 
-It adds the ability to give a view a `template` function that will be used to render its contents.
-
 ### Options
 ModuiBase provides a simple declarative syntax to define the public properties, or "options", of a view, and a mechanism to update the view when its options are changed. The declarative syntax for options makes it easy to understand the "API" for each view class. Options are:
 
