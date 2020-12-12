@@ -53,8 +53,8 @@ It also offers a `template` property on the view class which will be used to aut
 ModuiBase provides a simple declarative syntax to define the public properties, or "options", of a view, and a mechanism to update the view when its options are changed. The declarative syntax for options makes it easy to understand the "API" for each view class. Options are:
 
 * Declared as an array on the view class, with support for required and default values
-* Included automatically as template data when the view's template is rendered
 * Can be retrieved and modified by other views via public `get()` and `set()` methods
+* Included automatically as template data when the view class' `template` function is invoked
 
 ### Subviews
 ModuiBase provides an easy way to manage subviews in order to facilitate the use of small, encapsulated views that can be reused.
