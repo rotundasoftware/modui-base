@@ -66,7 +66,7 @@ To create a subview, just include an empty `div` with the `data-subview` attribu
 * Automatically cleans up (i.e. removes) subviews when a parent view is removed.
 
 ### Messages
-ModuiBase discourages the use of traditional Backbone events in favor of a more restrictive way to communicate between views that helps enforce encapsulation. Instead of events being triggered, "messages" are "spawned" by a view and passed up the DOM hierarchy. Messages are similar to DOM events but exist only in and for the "view layer" of abstraction, and do not bubble by default. As a result, the set of messages that are emitted from a view is limited and well defined, and lateral or global dependencies that complicate component reuse in different contexts are minimized.
+ModuiBase discourages the use of traditional Backbone events in favor of a more restrictive way to communicate between views that helps enforce encapsulation. Instead of events being triggered, "messages" are "spawned" by a view and passed up the DOM hierarchy. Messages are similar to DOM events but exist only in and for the "view layer" of abstraction, and do not bubble by default. As a result, the set of messages that are emitted from a view is limited and well defined, and lateral or global dependencies that complicate component reuse in different contexts are generally avoided.
 
 Use `view.spawn( messageName, data )` to spawn a message.
 
