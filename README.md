@@ -126,8 +126,8 @@ options : [
 View options are attached directly to the view object, but they should be accessed through `view.get`.
 
 ```
-const myView = MyView( { name : "CodeIzCool", type : 'ThisIsRequired' } );
-console.log( myView.get( 'name' ) ); // CodeIzCool
+const myView = MyView( { name : 'CodeIzCool', type : 'ThisIsRequired' } );
+console.log( myView.get( 'name' ) ); // 'CodeIzCool'
 ```
 
 #### subviewCreators
