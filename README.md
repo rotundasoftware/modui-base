@@ -66,7 +66,7 @@ To create a subview, just include an empty `div` with the `data-subview` attribu
 * Automatically cleans up (i.e. removes) subviews when a parent view is removed
 
 ### Messages
-ModuiBase discourages the use of traditional Backbone events in favor of a more restrictive way to communicate between views that helps enforce encapsulation. Instead of events being triggered, "messages" are "spawned" by a view and passed up the DOM hierarchy. Messages are similar to DOM events but exist only in and for the "view layer" of abstraction, and do not bubble by default. As a result, the set of messages that are emitted from a view is limited and well defined, and lateral or global dependencies that complicate component reuse are generally avoided.
+ModuiBase discourages the use of traditional Backbone events in favor of a more structured way to communicate between views that helps enforce encapsulation. Instead of events being triggered, "messages" are "spawned" by a view and passed up the DOM hierarchy. Messages are similar to DOM events but exist only in and for the "view layer" of abstraction, and do not bubble by default. As a result, the set of messages that are emitted from a view is limited and well defined, and lateral or global dependencies that complicate component reuse are generally avoided.
 
 Use `view.spawn( messageName, data )` to spawn a message.
 
@@ -117,7 +117,7 @@ An array of options for the view class. Each entry in the array may have one of 
 
 ```javascript
 options : [
-    'name', // Declares `name` a public option on this view class
+    'name', // Declares `name` an option on this view class
     'type!', // Explanation mark indicates required option - an error will be thrown if a value is not supplied
     { label : 'OK' } // Option with a default value
 ]
@@ -141,7 +141,7 @@ subviewCreators : {
 }
 ```
 
-An object containing all subviews, keyed by subview name, is maintained at `view.subviews`. This object is read-only - it is constructed automatically during render using the functions defined in `subviewCreators`.
+An object containing all subviews, keyed by subview name, is maintained at `view.subviews`. This object is read-only and constructed automatically during render using the functions defined in `subviewCreators`.
 
 #### onMessages
 The `onMessages` hash is the means by which a parent view can take action on, or "handle", messages received from its children. Entries in the `onMessages` hash have the format:
@@ -174,7 +174,7 @@ The `passMessages` property is used to pass messages received from a child view 
 * If the property is an array, only messages with the names it contains will be passed through.
 
 #### template( templateData )
-An optional function that returns the HTML for the view's `el`. If the `template` function is supplied, it will automatically be invoked and `view.el` will be populated as part of the default `render` behavior. The `template` function is passed as its only parameter a hash of the view's options merged with the result of `view._getTemplateData`. (If no `template` function is defined, you'll need to populate `view.el` manually by overriding `render`, as you would with a traditional Backbone view.)
+An optional function that returns the HTML for the view's `el`. If the `template` function is supplied, it will automatically be invoked and `view.el` will be populated as part of the default `render` behavior. The `template` function is passed as its only parameter a hash of the view's options merged with the result of `view._getTemplateData`. (If no `template` function is defined, you'll need to populate `view.el` by extending `render`, as you might with a traditional Backbone view.)
 
 We recommend configuring a preprocessor to compile files written in your preferred template language into executable functions. For example:
 
@@ -193,7 +193,7 @@ Set the value of one or more view options.
 
 ```javascript
 set( optionName, optionValue )
-set( optionsHash ) // where `optionsHash` is an object that maps option names to their new values
+set( optionsHash ) // `optionsHash` is an object that maps option names to their new values
 ```
 
 Some considerations:
@@ -211,9 +211,7 @@ view.get() // returns a hash mapping all options to their values
 ```
 
 #### spawn( messageName, data )
-The spawn method generates a new message and passes it to the view's "parent", i.e. the closest ancestor view in the DOM tree. It also calls `view.trigger( messageName, data )` so that you can listen to the message as you would a normal Backbone event.
-
-`data` is application defined data that will be available to this view's ancestors when handling this message using their `onMessages` hash.
+The spawn method generates a new message and passes it to the view's "parent", i.e. the closest ancestor view in the DOM tree. `data` is application defined data that will be available to this view's ancestors when handling this message using their `onMessages` hash. (`spawn` also calls `view.trigger( messageName, data )` so that you can `listenTo` the message from another view as you would a normal Backbone event, but you should rarely need to do so.)
 
 > **Round trip messages**
 > If `messageName` ends in `!`, the message is considered a "round trip message". Round trip messages are special in that they return values. That is, the `spawn()` method will return the value returned by the message handler. Using round trip messages, views can obtain dynamic information about their environment that, because it is dynamic, can not be passed in through view options. Round trip messages will continue to be passed up the hierarchy until they are handled - regardless of the value of each intermediate view's `passMessages` property. If a round trip message is not handled, `spawn()` returns `undefined`.
@@ -225,12 +223,12 @@ Remove some or all subviews. `whichSubviews` may be an array containing subview 
 `ModuiBase` implements some private methods meant to be overridden by descendant classes.
 
 #### _afterRender()
-This function may be extended to add post-rendering logic. Descendant views should extend this method to perform additional UI decoration.
+This function may be overridden to add post-rendering logic. Descendant views should extend this method to perform additional UI decoration.
 
-> **Important:** Descendant views should almost never extend `render()`. Extending `_afterRender()` is the preffered way of adding post-rendering logic, unless you really know what you're doing.
+> **Important:** Descendant views should rarely need to override or extend `render()`. Overriding `_afterRender()` is the preffered way of adding post-rendering logic.
 
 #### _getTemplateData()
-This function may be overriden to provide data to the view's template function. The object it returns will be merged with the view's options and then passed to the `template` function as the `templateData` parameter.
+This function may be overridden to provide data to the view's template function. The object it returns will be merged with the view's options and then passed to the `template` function as the `templateData` parameter.
 
 #### _onOptionsChanged( changedOptions, previousValues )
 This function can be overridden to take some action when options are changed, for example, to update DOM state. `changedOptions` is a hash of options that have changed to their new values and `previousValues` maps the same to their previous values.
@@ -244,6 +242,20 @@ const MyView = ModuiBase.extend( {
     },
 } );
 ```
+
+### Built-in options
+
+ModuiBase has two built-in options that you may use.
+
+#### extraClassName
+Accepts a class or space-separated list of classes that will be added to the view's element, much like the built-in `className` Backbone.View property.
+
+```javascript
+const myView = MyView( { extraClassName : 'dark-theme' } );
+```
+
+#### passMessagesTo
+Accepts a view instance to which spawned messages will be passed to (which will be used in place of the default behavior of spawning messages to the parent view). This option is especially useful for things like popups and dialogs, that may live at the top of the DOM tree but have been created by a particular view that is interested in listening to messages they spawn.
 
 ## License
 MIT
