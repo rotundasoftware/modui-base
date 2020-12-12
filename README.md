@@ -146,11 +146,11 @@ An object containing all subviews, keyed by subview name, is maintained at `view
 #### onMessages
 The `onMessages` hash is the means by which a parent view can take action on, or "handle", messages received from its children. Entries in the `onMessages` hash have the format:
 ```
-"messageName source" : callback
+"messageName [source]" : callback
 ```
 
 * The `messageName` portion is matched against the name of the messages that are received.
-* The `source` portion can be used to match only messages that come from a particular child view. It should maps the subview names declared in the `subviewCreators` option.
+* The optional `source` portion can be used to match only messages that come from a particular child view. It should maps the subview names declared in the `subviewCreators` option.
 * The "callback" portion determines what is done when a matching message is received. Just like Backbone's events hash, you can either provide the callback as the name of a method on the view, or a direct function body. In either case, the callback is invoked with three arguments:
   1. `data` is an application defined data object, as provided the in second argument to `view.spawn()`
   2. `currentSourceView` is the child view object that spawned or passed this message to this view.
