@@ -29,7 +29,7 @@ ModuiBase is written in ES6 and must be transpiled with a tool like WebKit or Br
     - [onMessages](#onmessages)
     - [passMessages](#passmessages)
     - [template( templateData )](##template-templatedata-)
- - [Public instance methods](#public-instance-methods)
+  - [Public instance methods](#public-instance-methods)
     - [set( optionsHashOrName, optionValue )](#set-optionshashorname-optionvalue-)
     - [get( optionNames )](#get-optionnames-)
     - [spawn( messageName, data )](#spawn-messagename-data-)
