@@ -47,6 +47,8 @@ From a high level perspective, ModuiBase extends Backbone.View with:
 * [Subview](#subviews) management
 * A DOM-based [message paradigm](#messages)
 
+It also offers a `template` property on the view class which will be used to automatically populate view elements' HTML, if supplied.
+
 ### Options
 ModuiBase provides a simple declarative syntax to define the public properties, or "options", of a view, and a mechanism to update the view when its options are changed. The declarative syntax for options makes it easy to understand the "API" for each view class. Options are:
 
@@ -57,7 +59,7 @@ ModuiBase provides a simple declarative syntax to define the public properties, 
 ### Subviews
 ModuiBase provides an easy way to manage subviews in order to facilitate the use of small, encapsulated views that can be reused.
 
-To create a subview, just include `<div data-subview="mySubview"></div>` in a view's template and then define a creator function for the subview in the class' `subviewCreators` property. The subview management logic:
+To create a subview, just include an empty `div` with the `data-subview` attribute in a view's HTML contents (e.g. `<div data-subview="mySubview"></div>`) and then define a creator function with a matching name in the class' `subviewCreators` property. The subview management logic:
 
 * Automatically puts references to subviews in a hash keyed by name, e.g. `this.subviews.mySubview`
 * Maintains subviews when a parent view is re-rendered, preserving subview state.
