@@ -78,31 +78,31 @@ Here is an example of a view that both spawns a message to its ancestors, and ha
 
 ```javascript
 const MyView = ModuiBase.extend( {
-	events : {
-		'click div.close-box' : '_closeBox_onClick'
-	},
-	
-	onMessages : {
-		'selected' : '_onChildSelected' // Handle the "selected" message from a child view.
-	},
-	
-	_onChildSelected( data, currentSourceView, originalSourceView ) {
-		console.log( 'My child view just spawned the "selected" message.' );
+    events : {
+        'click div.close-box' : '_closeBox_onClick'
+    },
+    
+    onMessages : {
+        'selected' : '_onChildSelected' // Handle the "selected" message from a child view.
+    },
+    
+    _onChildSelected( data, currentSourceView, originalSourceView ) {
+        console.log( 'My child view just spawned the "selected" message.' );
 
-		// Any application defined data that has been supplied (second argument passed when calling spawn)
-		console.log( data );
+        // Any application defined data that has been supplied (second argument passed when calling spawn)
+        console.log( data );
 
-		// The child view object that spawned or passed this message
-		assert( currentSourceView instanceof ModuiBase );
-		
-		// The child view object that spawned the original message
-		assert( currentSourceView instanceof ModuiBase );   
-	},
-	
-	// Spawn a message that can be handled by our own parent
-	_closeBox_onClick() {
-		this.spawn( 'closeBoxClicked' );
-	}
+        // The child view object that spawned or passed this message
+        assert( currentSourceView instanceof ModuiBase );
+        
+        // The child view object that spawned the original message
+        assert( currentSourceView instanceof ModuiBase );   
+    },
+    
+    // Spawn a message that can be handled by our own parent
+    _closeBox_onClick() {
+        this.spawn( 'closeBoxClicked' );
+    }
 } );
 ```
 
@@ -160,9 +160,9 @@ Example entries in the `onMessages` hash:
 
 ```javascript
 onMessages : {
- 	'selectionChanged' : 'onSelectionchanged', // Called when a message with this name is received from any subview
-	'selectionChanged myList' : '_myList_onSelectionChanged', // Called only when the message comes from "myList" subview
- 	'memberAdded' : function() { ... } // We can also provide a function declaration inline
+    'selectionChanged' : 'onSelectionchanged', // Called when a message with this name is received from any subview
+    'selectionChanged myList' : '_myList_onSelectionChanged', // Called only when the message comes from "myList" subview
+    'memberAdded' : function() { ... } // We can also provide a function declaration inline
 }
 ```
 
@@ -181,7 +181,7 @@ We recommend configuring a preprocessor to compile files written in your preferr
 import myViewTemplate from './myView.nunj';
 
 const MyView = ModuiBase.extend( {
-   template : myViewTemplate,
+    template : myViewTemplate,
 } );
 
 ```
@@ -192,8 +192,8 @@ const MyView = ModuiBase.extend( {
 Set the value of one or more view options.
 
 ```javascript
-set( optionName, optionValue )`
-set( optionsHash )` // where `optionsHash` is an object that maps option names to their new values
+set( optionName, optionValue )
+set( optionsHash ) // where `optionsHash` is an object that maps option names to their new values
 ```
 
 Some considerations:
@@ -237,11 +237,11 @@ This function can be overridden to take some action when options are changed, fo
 
 ```
 const MyView = ModuiBase.extend( {
-	_onOptionsChanged( changedOptions ) {
-		if( 'name' in changedOptions ) {
-			this.$el.find( 'div.name' ).text( changedOptions.name );
-		}
-	},
+    _onOptionsChanged( changedOptions ) {
+        if( 'name' in changedOptions ) {
+            this.$el.find( 'div.name' ).text( changedOptions.name );
+        }
+    },
 } );
 ```
 
