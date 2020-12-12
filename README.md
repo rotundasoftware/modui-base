@@ -19,22 +19,22 @@ ModuiBase is written in ES6 and must be transpiled with a tool like WebKit or Br
 
 **Table of contents**
 - [modui-base](#modui-base)
+  - [Options](#options)
   - [Subviews](#subviews)
   - [Messages](#messages)
-  - [View options](#view-options)
 - [API reference](#api-reference)
   - [Class properties](#class-properties)
-    - [template](#template)
     - [options](#options)
+    - [subviewCreators](#subviewcreators)
     - [onMessages](#onmessages)
     - [passMessages](#passmessages)
-    - [subviewCreators](#subviewcreators)
-  - [Public instance methods](#public-instance-methods)
+    - [template( templateData )](##template-templatedata-)
+ - [Public instance methods](#public-instance-methods)
     - [set( optionsHashOrName, optionValue )](#set-optionshashorname-optionvalue-)
     - [get( optionNames )](#get-optionnames-)
     - [spawn( messageName, data )](#spawn-messagename-data-)
     - [removeSubviews( whichSubviews )](#removesubviews-whichsubviews-)
-  - [Private instance methods](#private-instance-methods)
+  - [Overridable private class methods](#overridable-private-class-methods)
     - [_afterRender()](#_afterrender)
     - [_getTemplateData()](#_gettemplatedata)
     - [_onOptionsChanged( changedOptions, previousValues )](#_onoptionschanged-changedoptions-previousvalues-)
@@ -49,7 +49,7 @@ From a high level perspective, ModuiBase extends Backbone.View with:
 
 It adds the ability to give a view a `template` function that will be used to render its contents.
 
-### View options
+### Options
 ModuiBase provides a simple declarative syntax to define the puplic properties, or "options", of a view, and a mechanism to update the view when its options are changed. The declaritive syntax for options makes it easy to understand the "API" for each view class. Options are:
 
 * Declared as an array on the view class, with support for required and default values
