@@ -43,9 +43,9 @@ ModuiBase is written in ES6 and must be transpiled with a tool like WebKit or Br
 ## Overview
 From a high level perspective, ModuiBase extends Backbone.View with:
 
-* A means to declare and access [options](#view-options) (a.k.a public view properties)
-* [subview](#subviews) management
-* A DOM-based [message](#messages) paradigm
+* A means to declare and access [options](#options) (a.k.a public view properties)
+* [Subview](#subviews) management
+* A DOM-based [message paradigm](#messages)
 
 It adds the ability to give a view a `template` function that will be used to render its contents.
 
