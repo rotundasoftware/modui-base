@@ -183,7 +183,6 @@ import myViewTemplate from './myView.nunj';
 const MyView = ModuiBase.extend( {
     template : myViewTemplate,
 } );
-
 ```
 
 ### Public instance methods
