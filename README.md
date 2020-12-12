@@ -125,7 +125,7 @@ options : [
 
 View options are attached directly to the view object, but they should be accessed through `view.get`.
 
-```
+```javascript
 const myView = MyView( { name : 'CodeIzCool', type : 'ThisIsRequired' } );
 console.log( myView.get( 'name' ) ); // 'CodeIzCool'
 ```
@@ -145,7 +145,8 @@ An object containing all subviews, keyed by subview name, is maintained at `view
 
 #### onMessages
 The `onMessages` hash is the means by which a parent view can take action on, or "handle", messages received from its children. Entries in the `onMessages` hash have the format:
-```
+
+```javascript
 "messageName [source]" : callback
 ```
 
@@ -177,7 +178,7 @@ An optional function that returns the HTML for the view's `el`. If the `template
 
 We recommend configuring a preprocessor to compile files written in your preferred template language into executable functions. For example:
 
-```
+```javascript
 import myViewTemplate from './myView.nunj';
 
 const MyView = ModuiBase.extend( {
@@ -234,7 +235,7 @@ This function may be overriden to provide data to the view's template function. 
 #### _onOptionsChanged( changedOptions, previousValues )
 This function can be overridden to take some action when options are changed, for example, to update DOM state. `changedOptions` is a hash of options that have changed to their new values and `previousValues` maps the same to their previous values.
 
-```
+```javascript
 const MyView = ModuiBase.extend( {
     _onOptionsChanged( changedOptions ) {
         if( 'name' in changedOptions ) {
