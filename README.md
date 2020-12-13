@@ -54,7 +54,7 @@ From a high level perspective, ModuiBase extends Backbone.View with:
 It also offers a `template` property on the view class which will be used to automatically populate view elements' HTML, if supplied.
 
 ### Options
-ModuiBase provides a simple declarative syntax to define the public properties, or "options", of a view, and a mechanism to update a view when its options are changed. The declarative syntax for options makes it easy to understand the "API" for each view class. Options are:
+ModuiBase provides a simple declarative syntax to define the public properties, or "options", of a view, and a mechanism to update a view when its options are changed. The declarative syntax for options makes it easy to reference the "API" for each view class. Options are:
 
 * Declared as an array on the view class, with support for required and default values
 * Can be retrieved and modified by other views via public `get()` and `set()` methods
