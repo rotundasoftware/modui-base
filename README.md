@@ -50,23 +50,23 @@ From a high level perspective, ModuiBase extends Backbone.View with:
 It also offers a `template` property on the view class which will be used to automatically populate view elements' HTML, if supplied.
 
 ### Options
-ModuiBase provides a simple declarative syntax to define the public properties, or "options", of a view, and a mechanism to update the view when its options are changed. The declarative syntax for options makes it easy to understand the "API" for each view class. Options are:
+ModuiBase provides a simple declarative syntax to define the public properties, or "options", of a view, and a mechanism to update a view when its options are changed. The declarative syntax for options makes it easy to understand the "API" for each view class. Options are:
 
 * Declared as an array on the view class, with support for required and default values
 * Can be retrieved and modified by other views via public `get()` and `set()` methods
 * Included automatically as template data when the view class' `template` function is invoked
 
 ### Subviews
-ModuiBase provides an easy way to manage subviews in order to facilitate the use of small, modularized, reusable views.
+ModuiBase provides an easy way to manage subviews in order to facilitate componentization.
 
 To create a subview, just include an empty `div` with the `data-subview` attribute in a view's HTML contents (e.g. `<div data-subview="mySubview"></div>`) and then define a creator function with a matching name in the class' `subviewCreators` property. The subview management logic:
 
 * Automatically puts references to subviews in a hash keyed by name, e.g. `this.subviews.mySubview`
-* Maintains subviews when a parent view is re-rendered, preserving subview state
+* Maintains subviews when a parent view is re-rendered, preserving subview objects and their state
 * Automatically cleans up (i.e. removes) subviews when a parent view is removed
 
 ### Messages
-ModuiBase discourages the use of traditional Backbone events in favor of a more structured way to communicate between views that helps enforce encapsulation. Instead of events being triggered, "messages" are "spawned" by a view and passed up the DOM hierarchy. Messages are similar to DOM events but exist only in and for the "view layer" of abstraction, and do not bubble by default. As a result, the set of messages that are emitted from a view is limited and well defined, and lateral or global dependencies that complicate component reuse are generally avoided.
+ModuiBase discourages the use of traditional Backbone events in favor of a more structured way to communicate between views that helps enforce encapsulation. Instead of events being triggered, "messages" are "spawned" by a view and passed up the DOM hierarchy. Messages are similar to DOM events but exist only in and for the "view layer" of abstraction, and do not bubble by default. As a result, the set of messages that are emitted from a view is limited and well defined, and lateral or global dependencies that complicate component reuse are avoided.
 
 Use `view.spawn( messageName, data )` to spawn a message.
 
