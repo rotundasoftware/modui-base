@@ -54,7 +54,7 @@ ModuiBase provides a simple declarative syntax to define the public properties, 
 
 * Declared as an array on the view class, with support for required and default values
 * Can be retrieved and modified by other views via public `get()` and `set()` methods
-* Included automatically as template data when the view class' `template` function is invoked
+* Included automatically as template data when the view class' `template` method is invoked
 
 ### Subviews
 ModuiBase provides an easy way to manage subviews in order to facilitate componentization.
@@ -174,7 +174,7 @@ The `passMessages` property is used to pass messages received from a child view 
 * If the property is an array, only messages with the names it contains will be passed through.
 
 #### template( templateData )
-An optional function that returns the HTML for the view's `el`. If the `template` function is supplied, it will automatically be invoked and `view.el` will be populated as part of the default `render` behavior. The `template` function is passed as its only parameter a hash of the view's options merged with the result of `view._getTemplateData`. (If no `template` function is defined, you'll need to populate `view.el` by extending `render`, as you might with a traditional Backbone view.)
+An optional method that returns the HTML for the view's `el`. If the `template` method is supplied, it will automatically be invoked and `view.el` will be populated as part of the default `render` behavior. The `template` method is passed as its only parameter a hash of the view's options merged with the result of `view._getTemplateData`. (If no `template` method is defined, you'll need to populate `view.el` by extending `render`, as you might with a traditional Backbone view.)
 
 We recommend configuring a preprocessor to compile files written in your preferred template language into executable functions. For example:
 
@@ -223,15 +223,15 @@ Remove some or all subviews. `whichSubviews` may be an array containing subview 
 `ModuiBase` implements some private methods meant to be overridden by descendant classes.
 
 #### _afterRender()
-This function may be overridden to add post-rendering logic. Descendant views should extend this method to perform additional UI decoration.
+This method may be overridden to add post-rendering logic. Often times you may want to call logic that is also invoked when a view option is changed and it may be convenient to define a private instance method to be invoked in both cases. For example, a method that updates the title of a dialog by inserting it into a `div` named `_titleDiv_updateState` may be defined and called both in the dialog's `_afterRender` method and when the `title` option is changed.
 
 > **Important:** Descendant views should rarely need to override or extend `render()`. Overriding `_afterRender()` is the preffered way of adding post-rendering logic.
 
 #### _getTemplateData()
-This function may be overridden to provide data to the view's template function. The object it returns will be merged with the view's options and then passed to the `template` function as the `templateData` parameter.
+This method may be overridden to provide data to the view's `template` method. The object it returns will be merged with the view's options and then passed to the `template` method as the `templateData` parameter.
 
 #### _onOptionsChanged( changedOptions, previousValues )
-This function can be overridden to take some action when options are changed, for example, to update DOM state. `changedOptions` is a hash of options that have changed to their new values and `previousValues` maps the same to their previous values.
+This method can be overridden to take some action when options are changed, for example, to update DOM state. `changedOptions` is a hash of options that have changed to their new values and `previousValues` maps the same to their previous values.
 
 ```javascript
 const MyView = ModuiBase.extend( {
