@@ -38,6 +38,10 @@ ModuiBase is written in ES6 and must be transpiled with a tool like WebKit or Br
     - [_onOptionsChanged( changedOptions, previousValues )](#_onoptionschanged-changedoptions-previousvalues-)
     - [_afterRender()](#_afterrender)
     - [_getTemplateData()](#_gettemplatedata)
+  - [Built-in options](#built-in-options)
+    - [extraClassName](#extraclassname)
+    - [passMessagesTo](#passMessagesTo)
+
 - [License](#license)
 
 ## Overview
