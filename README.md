@@ -70,7 +70,7 @@ To create a subview, just include an empty `div` with the `data-subview` attribu
 * Automatically cleans up (i.e. removes) subviews when a parent view is removed
 
 ### Messages
-ModuiBase discourages the use of traditional Backbone events in favor of a more structured way to communicate between views that helps enforce encapsulation. Instead of events being triggered, "messages" are "spawned" by a view and passed up the DOM hierarchy. Messages are similar to DOM events but exist only in and for the "view layer" of abstraction, and do not bubble by default. As a result, the set of messages that are emitted from a view is limited and well defined, and lateral or global dependencies that complicate component reuse are avoided.
+ModuiBase discourages the use of traditional Backbone events in favor of a more structured way to communicate between views that helps enforce encapsulation. Instead of events being triggered, "messages" are "spawned" by a view and passed up the DOM hierarchy. Messages are similar to DOM events but exist only in and for the "view layer" of abstraction, and do not bubble by default. As a result, the set of messages that are emitted from a view is limited and well defined, and lateral or global dependencies that interfere with component reuse are largely avoided.
 
 Use `view.spawn( messageName, data )` to spawn a message.
 
@@ -78,7 +78,7 @@ The message will automatically "bubble up" to the view's parent, which can then 
 
 ![Spawned messages diagram](https://github.com/rotundasoftware/modui/blob/master/packages/modui-base/messages-diagram.jpg)
 
-Here is an example of a view that both spawns a message to its ancestors, and handles a message from its children:
+Here is an example of a view that both spawns a message to its parent, and handles a message from its children:
 
 ```javascript
 const MyView = ModuiBase.extend( {
