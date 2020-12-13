@@ -197,9 +197,9 @@ set( optionsHash ) // `optionsHash` is an object that maps option names to their
 ```
 
 Some considerations:
+* Changing the value of an option will trigger a call to `view._onOptionsChanged()`
 * Attempting to set an option that is not declared will throw an error
 * Attempting to set an option to `undefined` will throw an error
-* Changing the value of an option will trigger a call to `view._onOptionsChanged()`
 
 #### get( optionNames )
 Get the value of one or more options.
