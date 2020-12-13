@@ -207,7 +207,7 @@ Get the value of one or more options.
 ```javascript
 view.get( optionName ) // returns the value of the option named optionName
 view.get( optionNames ) // returns a hash mapping options in the optionNames array to their values
-view.get() // returns a hash mapping all options to their values
+view.get() // returns a hash mapping all the view's options to their values
 ```
 
 #### spawn( messageName, data )
