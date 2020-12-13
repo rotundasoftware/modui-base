@@ -213,7 +213,15 @@ The spawn method generates a new message and passes it to the view's "parent", i
 Remove some or all subviews. `whichSubviews` may be an array containing subview names. If `whichSubviews` is not supplied, all subviews will be removed.
 
 ### Overridable private class methods
-`ModuiBase` implements some private methods meant to be overridden by descendant classes.
+`ModuiBase` implements some private methods intended to be overridden by descendant classes.
+
+#### _getTemplateData()
+This method may be overridden to provide data to the view's `template` method. The object it returns will be merged with the view's options and then passed to the `template` method as the `templateData` parameter.
+
+#### _afterRender()
+This method may be overridden to add post-rendering logic. Often times you may want to call logic that is also invoked when a view option is changed and it may be convenient to define a private instance method to be invoked in both cases. For example, a method that updates the title of a dialog by inserting it into a `div` named `_titleDiv_updateState` may be defined and called both in the dialog's `_afterRender` method and when the `title` option is changed.
+
+> **Important:** Descendant views should rarely need to override or extend `render()`. Overriding `_afterRender()` is the preffered way of adding post-rendering logic.
 
 #### _onOptionsChanged( changedOptions, previousValues )
 This method can be overridden to take some action when options are changed, for example, to update DOM state. `changedOptions` is a hash of options that have changed to their new values and `previousValues` maps the same to their previous values.
@@ -227,15 +235,6 @@ const MyView = ModuiBase.extend( {
     },
 } );
 ```
-
-#### _afterRender()
-This method may be overridden to add post-rendering logic. Often times you may want to call logic that is also invoked when a view option is changed and it may be convenient to define a private instance method to be invoked in both cases. For example, a method that updates the title of a dialog by inserting it into a `div` named `_titleDiv_updateState` may be defined and called both in the dialog's `_afterRender` method and when the `title` option is changed.
-
-> **Important:** Descendant views should rarely need to override or extend `render()`. Overriding `_afterRender()` is the preffered way of adding post-rendering logic.
-
-#### _getTemplateData()
-This method may be overridden to provide data to the view's `template` method. The object it returns will be merged with the view's options and then passed to the `template` method as the `templateData` parameter.
-
 
 ### Built-in options
 
