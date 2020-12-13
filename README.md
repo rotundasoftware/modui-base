@@ -248,7 +248,7 @@ const myView = MyView( { extraClassName : 'dark-theme' } );
 ```
 
 #### passMessagesTo
-Accepts a view instance to which spawned messages will be passed (which will be used in place of the default behavior of spawning messages to the parent view). This option is especially useful for things like popups and dialogs, that may live at the top of the DOM tree but have been created by a particular view that is interested in listening to messages they spawn.
+Accepts a view instance to which spawned messages will be passed (which will be used in place of the default behavior of spawning messages to the parent view). This option is especially useful for things like popups and dialogs, that may live at the top of the DOM tree but have been created by a particular view that is interested in the messages they spawn.
 
 ## License
 MIT
