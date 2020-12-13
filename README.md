@@ -66,7 +66,7 @@ ModuiBase provides an easy way to manage subviews in order to facilitate compone
 * Creates subviews using supplied functions and inserts them in the appropriate place in the parent view
 * Puts references to subviews in a hash keyed by name at `view.subviews`
 * Maintains subviews when a parent view is re-rendered, preserving subview objects and their state
-* Cleans up (i.e. removes) subviews when a parent view is removed
+* Cleans up subviews when a parent view is removed
 
 ### Messages
 ModuiBase discourages the use of traditional Backbone events in favor of a more structured way to communicate between views that leads to better encapsulation and easier reuse of components. Instead of events being triggered, "messages" are "spawned" by a view and passed up the DOM hierarchy. Messages are similar to DOM events but exist only in and for the "view layer" of abstraction, and do not bubble by default. As a result, the set of messages that are emitted from a view is limited and well defined, and lateral or global dependencies that interfere with component reuse are largely avoided.
