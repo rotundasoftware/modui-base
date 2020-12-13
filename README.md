@@ -35,9 +35,9 @@ ModuiBase is written in ES6 and must be transpiled with a tool like WebKit or Br
     - [spawn( messageName, data )](#spawn-messagename-data-)
     - [removeSubviews( whichSubviews )](#removesubviews-whichsubviews-)
   - [Overridable private class methods](#overridable-private-class-methods)
+    - [_onOptionsChanged( changedOptions, previousValues )](#_onoptionschanged-changedoptions-previousvalues-)
     - [_afterRender()](#_afterrender)
     - [_getTemplateData()](#_gettemplatedata)
-    - [_onOptionsChanged( changedOptions, previousValues )](#_onoptionschanged-changedoptions-previousvalues-)
 - [License](#license)
 
 ## Overview
@@ -222,14 +222,6 @@ Remove some or all subviews. `whichSubviews` may be an array containing subview 
 ### Overridable private class methods
 `ModuiBase` implements some private methods meant to be overridden by descendant classes.
 
-#### _afterRender()
-This method may be overridden to add post-rendering logic. Often times you may want to call logic that is also invoked when a view option is changed and it may be convenient to define a private instance method to be invoked in both cases. For example, a method that updates the title of a dialog by inserting it into a `div` named `_titleDiv_updateState` may be defined and called both in the dialog's `_afterRender` method and when the `title` option is changed.
-
-> **Important:** Descendant views should rarely need to override or extend `render()`. Overriding `_afterRender()` is the preffered way of adding post-rendering logic.
-
-#### _getTemplateData()
-This method may be overridden to provide data to the view's `template` method. The object it returns will be merged with the view's options and then passed to the `template` method as the `templateData` parameter.
-
 #### _onOptionsChanged( changedOptions, previousValues )
 This method can be overridden to take some action when options are changed, for example, to update DOM state. `changedOptions` is a hash of options that have changed to their new values and `previousValues` maps the same to their previous values.
 
@@ -242,6 +234,15 @@ const MyView = ModuiBase.extend( {
     },
 } );
 ```
+
+#### _afterRender()
+This method may be overridden to add post-rendering logic. Often times you may want to call logic that is also invoked when a view option is changed and it may be convenient to define a private instance method to be invoked in both cases. For example, a method that updates the title of a dialog by inserting it into a `div` named `_titleDiv_updateState` may be defined and called both in the dialog's `_afterRender` method and when the `title` option is changed.
+
+> **Important:** Descendant views should rarely need to override or extend `render()`. Overriding `_afterRender()` is the preffered way of adding post-rendering logic.
+
+#### _getTemplateData()
+This method may be overridden to provide data to the view's `template` method. The object it returns will be merged with the view's options and then passed to the `template` method as the `templateData` parameter.
+
 
 ### Built-in options
 
