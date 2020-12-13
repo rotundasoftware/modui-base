@@ -133,7 +133,7 @@ subviewCreators : {
 }
 ```
 
-After `view.render()` is called, an object containing all subviews, keyed by subview name, is will be available at `view.subviews`. This `subviews` object is read-only and it we recommend that it is treated as a private instance variable.
+After `view.render()` is called, an object containing all subviews, keyed by subview name, is will be available at `view.subviews`. This `subviews` object is read-only and it we recommend that it is treated as private to the view.
 
 #### onMessages
 The `onMessages` hash is the means by which a parent view can take action on, or "handle", messages received from its children. Entries in the `onMessages` hash have the format:
