@@ -73,7 +73,7 @@ ModuiBase discourages the use of traditional Backbone events in favor of a more 
 
 Use `view.spawn( messageName, data )` to spawn a message.
 
-The message will automatically "bubble up" to the view's parent, which can then "handle" the message and / or pass it to the parent's own parent, and so on. The DOM tree is used (by default) to determine the view hierarchy. (The message is also triggered as a traditional Backbone event, but only in rare cases is it necessary to `listenTo` the triggered Backbone event laterally, as opposed to handling the spawned message in an ancestor view.)
+The message will automatically "bubble up" to the view's parent, which can then "handle" the message and / or pass it to the parent's own parent, and so on. The DOM tree is used to determine the view hierarchy. (The message is also triggered as a traditional Backbone event, but only in rare cases is it necessary to `listenTo` the triggered Backbone event laterally, as opposed to handling the spawned message in an ancestor view.)
 
 ![Spawned messages diagram](https://github.com/rotundasoftware/modui/blob/master/packages/modui-base/messages-diagram.jpg)
 
