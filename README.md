@@ -61,13 +61,12 @@ ModuiBase provides a simple declarative syntax to define the public properties, 
 * Included automatically as template data when the view class' `template` method is invoked
 
 ### Subviews
-ModuiBase provides an easy way to manage subviews in order to facilitate componentization.
+ModuiBase provides an easy way to manage subviews in order to facilitate componentization. The subview management logic:
 
-To create a subview, just include an empty `div` with the `data-subview` attribute in a view's HTML contents (e.g. `<div data-subview="mySubview"></div>`) and then define a creator function with a matching name in the class' `subviewCreators` property. The subview management logic:
-
-* Automatically puts references to subviews in a hash keyed by name, e.g. `this.subviews.mySubview`
+* Creates subviews using supplied functions and inserts them in the appropriate place in the parent view
+* Puts references to subviews in a hash keyed by name, e.g. `this.subviews.mySubview`
 * Maintains subviews when a parent view is re-rendered, preserving subview objects and their state
-* Automatically cleans up (i.e. removes) subviews when a parent view is removed
+* Cleans up (i.e. removes) subviews when a parent view is removed
 
 ### Messages
 ModuiBase discourages the use of traditional Backbone events in favor of a more structured way to communicate between views that leads to better encapsulation and easier reuse of components. Instead of events being triggered, "messages" are "spawned" by a view and passed up the DOM hierarchy. Messages are similar to DOM events but exist only in and for the "view layer" of abstraction, and do not bubble by default. As a result, the set of messages that are emitted from a view is limited and well defined, and lateral or global dependencies that interfere with component reuse are largely avoided.
@@ -124,17 +123,17 @@ console.log( myView.get( 'name' ) ); // 'CodeIzCool'
 ```
 
 #### subviewCreators
-An object mapping subview names to functions that return view instances.
+An object mapping subview names to functions that return view instances. To create a subview, include a `div` with the `data-subview` attribute in a view's HTML contents (e.g. `<div data-subview="mySubview"></div>`) and then define a creator function with a matching name in the class' `subviewCreators` property:
 
 ```javascript
 subviewCreators : {
-    myChildView() {
-        return new MyChildView();
+    mySubview() {
+        return new MySubview();
     }
 }
 ```
 
-An object containing all subviews, keyed by subview name, is maintained at `view.subviews`. This object is read-only and constructed automatically during render using the functions defined in `subviewCreators`.
+After `view.render()` is called, an object containing all subviews, keyed by subview name, is will be available at `view.subviews`. This `subviews` object is read-only and it we recommend that it is treated as a private instance variable.
 
 #### onMessages
 The `onMessages` hash is the means by which a parent view can take action on, or "handle", messages received from its children. Entries in the `onMessages` hash have the format:
