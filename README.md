@@ -83,29 +83,18 @@ Here is an example of a view that both spawns a message to its parent, and handl
 ```javascript
 const MyView = ModuiBase.extend( {
     events : {
-        'click div.close-box' : '_closeBox_onClick'
+        'click div.close-box' : function() {
+            // Spawn a message that can be handled by our own parent
+            this.spawn( 'closeBoxClicked' );
+        }
     },
     
     onMessages : {
-        'selected' : '_onChildSelected' // Handle the "selected" message from a child view.
-    },
-    
-    _onChildSelected( data, currentSourceView, originalSourceView ) {
-        console.log( 'My child view just spawned the "selected" message.' );
-
-        // Any application defined data that has been supplied (second argument passed when calling spawn)
-        console.log( data );
-
-        // The child view object that spawned or passed this message
-        assert( currentSourceView instanceof ModuiBase );
-        
-        // The child view object that spawned the original message
-        assert( currentSourceView instanceof ModuiBase );   
-    },
-    
-    // Spawn a message that can be handled by our own parent
-    _closeBox_onClick() {
-        this.spawn( 'closeBoxClicked' );
+        // Handle the "selected" message from a child view.
+        'selected' : function( data ) {
+            console.log( 'My child view just selected the record:' );
+            console.log( data.recordId ); // data can be supplied when a message is spawned
+        } 
     }
 } );
 ```
