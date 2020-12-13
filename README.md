@@ -64,7 +64,7 @@ ModuiBase provides a simple declarative syntax to define the public properties, 
 ModuiBase provides an easy way to manage subviews in order to facilitate componentization. The subview management logic:
 
 * Creates subviews using supplied functions and inserts them in the appropriate place in the parent view
-* Puts references to subviews in a hash keyed by name, e.g. `this.subviews.mySubview`
+* Puts references to subviews in a hash keyed by name at `view.subviews`
 * Maintains subviews when a parent view is re-rendered, preserving subview objects and their state
 * Cleans up (i.e. removes) subviews when a parent view is removed
 
