@@ -75,7 +75,7 @@ Use `view.spawn( messageName, data )` to spawn a message.
 
 The message is passed to the view's parent, which can then "handle" the message and / or pass it to the parent's own parent, and so on. The DOM tree is used to determine the view hierarchy.
 
-![Spawned messages diagram](https://github.com/rotundasoftware/modui/blob/master/packages/modui-base/messages-diagram.jpg)
+![Spawned messages diagram](https://github.com/rotundasoftware/modui-base/blob/master/messages-diagram.jpg)
 
 Here is an example of a view that both spawns a message to its parent and handles a message from its children:
 
