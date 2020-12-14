@@ -3,7 +3,7 @@
 
 ModuiBase is a foundational view class inspired by and based on Backbone.View. It was designed to help scale Backbone's signature, minimalist approach to support arbitrarily complex web interfaces by facilitating the modularization of views into small, encapsulated, reusable components.
 
-[Rotunda Software](https://www.rotundasoftware.com) maintains ModuiBase and uses it as the foundation of an expansive suite of application agnostic proprietary interface components such as buttons, fields, dropdowns, dialogs, popups, etc. All of our application specific views also descend from ModuiBase.
+[Rotunda Software](https://www.rotundasoftware.com) maintains ModuiBase and uses it as the foundation of an expansive suite of application agnostic proprietary interface components such as buttons, fields, dropdowns, dialogs, popups, etc. All of our application specific components also descend from ModuiBase.
 
 To use ModuiBase, extend it as you would with Backbone.View. Please see the [Backbone.View documentation](https://backbonejs.org/#View) for prerequisite understanding of Backbone.View.
 
