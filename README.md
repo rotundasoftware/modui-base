@@ -219,7 +219,7 @@ This method may be overridden to provide data to the view's `template` method. T
 #### _afterRender()
 This method may be overridden to add post-rendering logic. 
 
-> **Important:** Descendant views should rarely need to override or extend `render()`. Overriding `_afterRender()` is the preferred way of adding post-rendering logic.
+> **Important:** Descendant classes should rarely need to override or extend `render()`. Overriding `_afterRender()` is the preferred way of adding post-rendering logic.
 
 > **Note:** Often times you may want to call logic that is also invoked when a view option is changed and it may be convenient to define a private instance method to be invoked in both cases. For example, a method that updates the title of a dialog by inserting it into a `div` named `_titleDiv_updateState` may be defined and called both from the dialog's `_afterRender` method and from `_onOptionsChanged`.
 
