@@ -205,13 +205,15 @@ view.get() // returns a hash mapping all the view's options to their values
 #### spawn( messageName, data )
 The spawn method generates a new message and passes it to the view's "parent", i.e. the closest ancestor view in the DOM tree. `data` is application defined data that will be available to this view's ancestors when handling this message using their `onMessages` hash. (`spawn` also calls `view.trigger( messageName, data )` so that you can `listenTo` the message from another view as you would a normal Backbone event, but you should rarely need to do so.)
 
-If `messageName` ends in `!`, the message is considered a "round trip message". Round trip messages are special in that they return values. That is, the `spawn()` method will return the value returned by the message handler. Using round trip messages, views can obtain dynamic information about their environment that, because it is dynamic, can not be passed in through view options. Round trip messages will continue to be passed up the hierarchy until they are handled. If a round trip message is not handled, `spawn()` returns `undefined`.
+##### Round-trip messages
 
-One powerful use case for round trip messages is to return a promise that resolves after the parent view has taken some asynchronous action.
+If `messageName` ends in `!`, the message is considered a "round-trip message". Round-trip messages return values. That is, the `spawn()` method will return the value returned by the message handler. Using round-trip messages, views can obtain dynamic information about their environment, or wait for a some asynchronous action to be peformed by a parent, e.g.
 
 ```javascript
 const result = await this.spawn( 'asyncClick!' );
 ```
+
+Round trip messages will continue to be passed up the hierarchy until they are handled. If a round trip message is not handled, `spawn()` returns `undefined`.
 
 #### removeSubviews( whichSubviews )
 Remove some or all subviews. `whichSubviews` may be an array containing subview names. If `whichSubviews` is not supplied, all subviews will be removed.
