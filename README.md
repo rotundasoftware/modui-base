@@ -139,7 +139,7 @@ After `view.render()` is called, an object containing all subviews, keyed by sub
 The `onMessages` hash is the means by which a parent view can take action on, or "handle", messages received from its children. Entries in the `onMessages` hash have the format:
 
 ```javascript
-"messageName [source]" : callback
+'messageName [source]' : callback
 ```
 
 * The `messageName` portion is matched against the name of the messages that are received.
