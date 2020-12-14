@@ -28,16 +28,16 @@ ModuiBase is written in ES6 and must be transpiled with a tool like WebKit or Br
     - [subviewCreators](#subviewcreators)
     - [onMessages](#onmessages)
     - [passMessages](#passmessages)
-    - [template( templateData )](##template-templatedata-)
+    - [template](##template-templatedata-)
   - [Public instance methods](#public-instance-methods)
-    - [set( optionsHashOrName, optionValue )](#set-optionshashorname-optionvalue-)
-    - [get( optionNames )](#get-optionnames-)
-    - [spawn( messageName, data )](#spawn-messagename-data-)
-    - [removeSubviews( whichSubviews )](#removesubviews-whichsubviews-)
+    - [set](#set-optionname-optionvalue-)
+    - [get](#get-optionname-)
+    - [spawn](#spawn-messagename-data-)
+    - [removeSubviews](#removesubviews-whichsubviews-)
   - [Overridable private class methods](#overridable-private-class-methods)
-    - [_getTemplateData()](#_gettemplatedata)
-    - [_afterRender()](#_afterrender)
-    - [_onOptionsChanged( changedOptions, previousValues )](#_onoptionschanged-changedoptions-previousvalues-)
+    - [_getTemplateData](#_gettemplatedata)
+    - [_afterRender](#_afterrender)
+    - [_onOptionsChanged](#_onoptionschanged-changedoptions-previousvalues-)
   - [Built-in options](#built-in-options)
     - [extraClassName](#extraclassname)
     - [passMessagesTo](#passMessagesTo)
@@ -180,11 +180,11 @@ const MyView = ModuiBase.extend( {
 
 ### Public instance methods
 
-#### set( optionsHashOrName, optionValue )
+#### set( optionName, optionValue )
 Set the value of one or more view options.
 
 ```javascript
-set( optionName, optionValue )
+set( optionName, optionValue ) // set a single option
 set( optionsHash ) // `optionsHash` is an object that maps option names to their new values
 ```
 
@@ -193,7 +193,7 @@ Some considerations:
 * Attempting to set an option that is not declared will throw an error
 * Attempting to set an option to `undefined` will throw an error
 
-#### get( optionNames )
+#### get( optionName )
 Get the value of one or more options.
 
 ```javascript
