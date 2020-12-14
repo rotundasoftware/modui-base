@@ -205,8 +205,6 @@ view.get() // returns a hash mapping all the view's options to their values
 #### spawn( messageName, data )
 The spawn method generates a new message and passes it to the view's "parent", i.e. the closest ancestor view in the DOM tree. `data` is application defined data that will be available to this view's ancestors when handling this message using their `onMessages` hash. (`spawn` also calls `view.trigger( messageName, data )` so that you can `listenTo` the message from another view as you would a normal Backbone event, but you should rarely need to do so.)
 
-##### Round-trip messages
-
 If `messageName` ends in `!`, the message is considered a "round-trip message". Round-trip messages return values. That is, the `spawn()` method will return the value returned by the message handler. Using round-trip messages, views can obtain dynamic information about their environment, or wait for a some asynchronous action to be peformed by a parent, e.g.
 
 ```javascript
