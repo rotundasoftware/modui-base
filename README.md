@@ -77,7 +77,7 @@ The message will passed to the view's parent, which can then "handle" the messag
 
 ![Spawned messages diagram](https://github.com/rotundasoftware/modui/blob/master/packages/modui-base/messages-diagram.jpg)
 
-Here is an example of a view that both spawns a message to its parent, and handles a message from its children:
+Here is an example of a view that both spawns a message to its parent and handles a message from its children:
 
 ```javascript
 const MyView = ModuiBase.extend( {
@@ -115,7 +115,7 @@ options : [
 ]
 ```
 
-View options are attached directly to the view object, but they should be accessed through `view.get`.
+View options are attached directly to the view object, but they should be accessed externally through `view.get`.
 
 ```javascript
 const myView = MyView( { name : 'CodeIzCool', type : 'ThisIsRequired' } );
