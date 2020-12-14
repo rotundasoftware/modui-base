@@ -73,7 +73,7 @@ ModuiBase discourages the use of traditional Backbone events in favor of a more 
 
 Use `view.spawn( messageName, data )` to spawn a message.
 
-The message will passed to the view's parent, which can then "handle" the message and / or pass it to the parent's own parent, and so on. The DOM tree is used to determine the view hierarchy.
+The message is passed to the view's parent, which can then "handle" the message and / or pass it to the parent's own parent, and so on. The DOM tree is used to determine the view hierarchy.
 
 ![Spawned messages diagram](https://github.com/rotundasoftware/modui/blob/master/packages/modui-base/messages-diagram.jpg)
 
@@ -133,7 +133,7 @@ subviewCreators : {
 }
 ```
 
-After `view.render()` is called, an object containing all subviews, keyed by subview name, is will be available at `view.subviews`. This `subviews` object is read-only and it we recommend that it is treated as private to the view.
+After `view.render()` is called, an object containing all subviews, keyed by subview name, will be available at `view.subviews`. This `subviews` object is read-only and we recommend that it be kept private to the view.
 
 #### onMessages
 The `onMessages` hash is the means by which a parent view can take action on, or "handle", messages received from its children. Entries in the `onMessages` hash have the format:
@@ -220,7 +220,7 @@ This method may be overridden to provide data to the view's `template` method. T
 #### _afterRender()
 This method may be overridden to add post-rendering logic. Often times you may want to call logic that is also invoked when a view option is changed and it may be convenient to define a private instance method to be invoked in both cases. For example, a method that updates the title of a dialog by inserting it into a `div` named `_titleDiv_updateState` may be defined and called both in the dialog's `_afterRender` method and when the `title` option is changed.
 
-> **Important:** Descendant views should rarely need to override or extend `render()`. Overriding `_afterRender()` is the preffered way of adding post-rendering logic.
+> **Important:** Descendant views should rarely need to override or extend `render()`. Overriding `_afterRender()` is the preferred way of adding post-rendering logic.
 
 #### _onOptionsChanged( changedOptions, previousValues )
 This method can be overridden to take some action when options are changed, for example, to update DOM state. `changedOptions` is a hash of options that have changed to their new values and `previousValues` maps the same to their previous values.
