@@ -69,7 +69,7 @@ ModuiBase provides an easy way to manage subviews in order to facilitate compone
 * Cleans up subviews when a parent view is removed
 
 ### Messages
-ModuiBase discourages the use of traditional Backbone events in favor of a more structured way to communicate between views that promotes encapsulation and reuse of components. Instead of events being triggered, "messages" are "spawned" by a view and passed up the DOM hierarchy. Messages are similar to DOM events but exist only in and for the "view layer" of abstraction, and do not bubble by default. As a result, the set of messages that are emitted from a view is limited and well defined, and lateral or global dependencies that interfere with component reuse are largely avoided.
+ModuiBase discourages the use of traditional Backbone events in favor of a more structured way to communicate between views that leads to better encapsulation and easier reuse of components. Instead of events being triggered, "messages" are "spawned" by a view and passed up the DOM hierarchy. Messages are similar to DOM events but exist only in and for the "view layer" of abstraction, and do not bubble by default. As a result, the set of messages that are emitted from a view is limited and well defined, and lateral or global dependencies that interfere with component reuse are largely avoided.
 
 Use `view.spawn( messageName, data )` to spawn a message.
 
