@@ -15,7 +15,7 @@ const MyView = ModuiBase.extend( {
 } );
 ```
 
-ModuiBase is written in ES6 and must be transpiled with a tool like WebKit or Browserify to be used with older browsers. (At Rotunda we use [cartero](https://github.com/rotundasoftware/cartero) to further support the reuse of UI components in large multi-page web applications.)
+ModuiBase is written in ES6 and must be transpiled with a tool like WebKit or Browserify to be used with older browsers.
 
 **Table of contents**
 - [Overview](#overview)
