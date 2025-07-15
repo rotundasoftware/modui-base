@@ -41,7 +41,7 @@ ModuiBase is written in ES6 and must be transpiled with a tool like WebKit or Br
   - [Built-in options](#built-in-options)
     - [extraClassName](#extraclassname)
     - [passMessagesTo](#passMessagesTo)
-
+- [View rendering Lifecycle](#view-rendering-lifecycle)
 - [License](#license)
 
 ## Overview
@@ -255,6 +255,84 @@ const myView = MyView( { extraClassName : 'dark-theme' } );
 
 #### passMessagesTo
 Accepts a view instance to which spawned messages will be passed (which will be used in place of the default behavior of spawning messages to the parent view). This option is especially useful for things like popups and dialogs, that may live at the top of the DOM tree but have been created by a particular view that is interested in the messages they spawn.
+
+## View rendering Lifecycle
+When the `view.render()` is called a series of distinct steps are executed in a specific order. The following diagram illustrates the high-level phases of the view rendering lifecycle:
+
+
+![Rendering lifecyle diagram](https://github.com/rotundasoftware/modui-base/blob/docRenderingLifecycle/rendering-lifecycle-diagram.png)
+
+To clarify each step of the lifecycle, let’s walk through a minimal code example. This example demonstrates how the rendering process unfolds when `ParentView.render()` is invoked:
+
+```javascript
+import ModuiBase from '@rotundasoftware/modui-base';
+
+// ChildView Definition (as an example subview)
+const ChildView = ModuiBase.extend( {
+    template : templateData => `<div>Child View. Message: ${ templateData.message }</div>`,
+
+    options : [
+        { message : 'Default Message' }
+    ],
+
+    _afterRender() {
+        console.log( 'ChildView: _afterRender() called' );
+    }
+} );
+
+// ParentView Definition
+const ParentView = ModuiBase.extend( {
+    options : [
+        { title : 'Default Title' }
+    ],
+
+    _getTemplateData() {
+        console.log( 'ParentView: _getTemplateData() called' );
+        return {
+            dynamicMessage : 'This is a dynamic message from _getTemplateData!'
+        };
+    },
+
+    template( templateData ) {
+        console.log( 'ParentView: template() called with data:', templateData );
+        return `
+            <div class="parent-view">
+                <h1>${ templateData.title }</h1>
+                <p>${ templateData.dynamicMessage }</p>
+                <div data-subview="myChild"></div>
+                <button class="update-title-button">Update Title</button>
+            </div>
+        `;
+    },
+
+    subviewCreators : {
+        myChild() {
+            console.log( 'ParentView: subviewCreators.myChild() called' );
+            return new ChildView( { message : 'Hello from Parent!' } );
+        }
+    },
+
+    _afterRender() {
+        console.log( 'ParentView: _afterRender() called' );
+    }
+} );
+```
+### Rendering flow:
+When `ParentView.render()` is called, the framework performs the following steps:
+
+1. `ParentView._getTemplateData()` is called to gather data for the template.  
+It returns: ```{dynamicMessage: "This is a dynamic message from _getTemplateData!"}```
+2. `ParentView.template(data)` is called with a merged object combining: 
+    - Data returned from `_getTemplateData()`
+    - Values from the `options` array
+
+    The method returns the view's HTML
+
+3. `ParentView.subviewCreators.myChild()` is called to create the ChildView (only if it doesn't already exist).
+4. `ChildView._render()` is invoked and will render the subview.  
+Note: All subviews are first created, then all are rendered, both in the order they appear in the DOM. 
+5. `ChildView._afterRender()` is called after the child view is rendered.
+6. After all subviews have been rendered, `ParentView._afterRender()` is invoked.
 
 ## License
 MIT
